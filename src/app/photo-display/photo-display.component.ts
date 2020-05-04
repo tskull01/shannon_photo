@@ -84,7 +84,7 @@ setCurrentPhotos(){
       for(let i = 1;i <= this.sizeOfAlbum; i++){
         this.masonryItems.push(new Photo(i, `../../assets/images/${this._filter}/${this._filter}(${i}).jpg`,this._filter));
   }  
-}
+} 
   disableRightClick(e){
     return false;
   }
