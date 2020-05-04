@@ -11,7 +11,6 @@ import { MobileNavComponent } from './mobile-nav/mobile-nav.component';
 import { PhotoFullComponent } from './photo-full/photo-full.component';
 import { PhotoDisplayComponent } from './photo-display/photo-display.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
-import { NgxMasonryModule } from 'ngx-masonry';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -42,7 +41,6 @@ enableProdMode();
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgxMasonryModule,
     SwiperModule,
     BrowserAnimationsModule,
     MatIconModule,

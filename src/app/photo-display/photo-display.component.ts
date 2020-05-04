@@ -1,7 +1,6 @@
 import { Component, EventEmitter,Output, ViewChild, ViewChildren,QueryList,ChangeDetectionStrategy } from '@angular/core';
 import { Photo } from 'src/app/photo'; 
 import { PhotoDeliveryService } from '../photo-delivery.service';
-import { NgxMasonryComponent,NgxMasonryOptions } from 'ngx-masonry';
 import { FilesizeService } from '../filesize.service';
 import { trigger, stagger, style, animate, transition,query } from '@angular/animations';
 @Component({
@@ -33,13 +32,9 @@ export class PhotoDisplayComponent {
   masonryItemsSmall:Photo[]=[]; 
   sizeOfAlbum:number; 
 private _filter:string = 'action'; 
-  @ViewChild(NgxMasonryComponent) masonry: NgxMasonryComponent;
   @ViewChildren('items')items:QueryList<any>;
   updateMasonryLayout:boolean = false;
   selectedPhoto:Photo;
-  options:NgxMasonryOptions = {
-    initLayout:true
-  };
   @Output() setSelection = new EventEmitter();
 constructor(private photoService:PhotoDeliveryService, private fileService:FilesizeService ){
      this.photoService.filterChange.subscribe((value) =>{
@@ -101,8 +96,6 @@ setCurrentPhotos(){
   }
  callLayout(){
    console.log('calling layout')
-   this.masonry.reloadItems();
-   this.masonry.layout();
  }
  everythingLoaded(){
    //Start animation
