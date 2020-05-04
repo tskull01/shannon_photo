@@ -23,8 +23,6 @@
     "@angular/router": "~9.1.4",
     "@angular/service-worker": "^9.1.2",
     "core-js": "^3.6.5",
-    "imagesloaded": "^4.1.4",
-    "masonry-layout": "^4.2.2",
     "ngx-swiper-wrapper": "^9.0.1",
     "rxjs": "~6.5.5",
     "swiper": "^5.3.8",
