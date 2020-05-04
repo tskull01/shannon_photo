@@ -82,8 +82,8 @@ constructor(private photoService:PhotoDeliveryService, private fileService:Files
 setCurrentPhotos(){
     //Set all of the images
       for(let i = 1;i <= this.sizeOfAlbum; i++){
-        this.masonryItems.push(new Photo(i, `../../assets/images/${this._filter}/${this._filter}(${i}).jpg?nf_resize=fit&w=300`,this._filter));
-  }
+        this.masonryItems.push(new Photo(i, `../../assets/images/${this._filter}/${this._filter}(${i}).jpg`,this._filter));
+  }  
 }
   disableRightClick(e){
     return false;
