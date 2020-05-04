@@ -1,0 +1,34 @@
+<div class="wrapper">
+  <div class="content">
+    <div [ngSwitch]="selection">
+      <div *ngSwitchCase="1">
+    <app-mobile-display #display [filter]=filter></app-mobile-display>
+      </div>
+      <div *ngSwitchCase="4">
+        <app-contact></app-contact>
+      </div>
+      <div *ngSwitchCase="3">
+        <app-bio></app-bio>
+      </div>
+      <div *ngSwitchCase="2">
+          <app-editing></app-editing>
+        </div>
+    </div>
+  </div>
+  <div class="nav">
+    <ul *ngIf="!photography">
+      <li (click)=setSelection(1)>Photography</li>
+      <li (click)=setSelection(2)>Retouching</li>
+      <li (click)=setSelection(3)>Bio</li>
+      <li (click)=setSelection(4)>Contact</li>
+    </ul>
+    <ul *ngIf="photography">
+      <li (click)=setFilter(1)>Action</li>
+      <li (click)=setFilter(2)>Combat Sports</li>
+      <li (click)=setFilter(3)>Environmental</li>
+      <li (click)=setFilter(4)>Personal Projects</li>
+      <li (click)=setFilter(5)>Product/Lifestyle</li>
+      <li (click)=setPhotography(false)> Close Photography</li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<div class="container">
+  <div #fullnav class="wrapper">
+    <div class="header">
+      <h2>SHANNON SCHULTZ PHOTOGRAPHY</h2>
+    </div>
+    <div class="nav" id="sticky">
+      <div #grid class="grid-container">
+        <ul>
+          <li (click)="navSelection(1);photoSelected();"
+            class="opendropdown">
+            <a routerLink="/display" routerLinkActive="active">Photography</a> 
+          </li>
+          <li (click)="navSelection(2);">
+            <a routerLink="/editing" routerLinkActive="active">Retouching</a>  
+          </li>
+          <li (click)="navSelection(3);">
+            <a routerLink="/bio" routerLinkActive="active">Bio</a> 
+          </li>
+          <li (click)="navSelection(4);">
+            <a routerLink="/contact" routerLinkActive="active">Contact</a>
+          </li>
+        </ul>
+        <ul class="link-style" *ngIf="photo">
+          <li (click)="setFilter('action');navSelection(1);">
+            Action
+          </li>
+          <li (click)="setFilter('combat');navSelection(1);">
+          Combat Sports 
+          </li>
+          <li (click)="setFilter('environment');navSelection(1);">
+          Environmental 
+          </li>
+          <li (click)="setFilter('product');navSelection(1);">
+           Product/Lifestyle 
+          </li>
+          <li (click)="setFilter('personal');navSelection(1);">
+           Personal Projects 
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+<main class="content">
+<router-outlet ></router-outlet>
+</main>
+</div>
+
+
+<!--
+  <div class="content"> 
+      <div [ngSwitch]="selection">
+          <div *ngSwitchCase="1">
+        <app-photo-display #display [animateHide]=animateHide [filter]=filter (setSelection)='selectDisplay()' 
+        (showAnimation)='setShow()'></app-photo-display>
+          </div>
+          <div *ngSwitchCase="4">
+            <app-contact></app-contact>
+          </div>
+          <div *ngSwitchCase="3">
+            <app-bio></app-bio>
+          </div>
+          <div *ngSwitchCase="2">
+              <app-editing></app-editing>
+            </div>
+          <div *ngSwitchCase="5">
+            <app-photo-full (return)="navSelection(1)"></app-photo-full>
+          </div>
+        </div>
+  </div>
+</div>
+-->

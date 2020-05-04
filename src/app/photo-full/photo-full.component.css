@@ -1,0 +1,47 @@
+.container{
+    display: grid;
+    grid-template-columns: 10vw 7vw 76vw 7vw;
+    grid-template-rows: 80vh;
+    margin-left:2vw;
+    margin-right:2vw;
+    margin-bottom:1vw;
+    background-color: rosybrown;
+} 
+.container img{
+    display: block;
+    max-width: 100%;
+    max-height: 80vh;
+    align-self: center;
+    justify-self: center;
+    cursor: url('../../assets/icons/grid_icon.svg'), auto;
+    background-color:navy;
+}
+.button-grid{
+    display: grid;
+    grid-template-columns: 100%;
+    width:100%;
+    grid-template-rows: 82% 8% 10%;
+    align-items: center;
+    justify-items: center;
+    background-color: orchid;
+}
+.button-grid button{
+    border:none;
+    background:white; 
+    font-family: 'Raleway', sans-serif;
+    text-shadow: 0 0 1px rgba(255,255,255,0.3);
+    cursor: pointer;
+}
+mat-icon{
+    cursor: pointer;
+}
+.arrow-l{
+    width: 100%;
+    background-color: darkorange;
+    cursor: url('../../assets/icons/arrow-l.svg'), auto;
+}
+.arrow-r{
+    width: 100%;
+    background-color: blueviolet;
+    cursor: url('../../assets/icons/arrow-r.svg'), auto;
+}

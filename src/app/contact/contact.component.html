@@ -1,0 +1,51 @@
+<div class="contact-wrapper">
+  
+    <h2>Contact Me</h2>
+<div [hidden]='submitted'>
+<form #form="ngForm" (ngSubmit)="onSubmit()" >
+ <div class="form-grid">
+     <div class="name-row">
+    <mat-form-field appearance="outline">
+    <mat-label>First Name</mat-label>
+    <input matInput placeholder="First Name" required [(ngModel)]="model.first" name="first" #first="ngModel">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+     <mat-label>Last Name</mat-label>
+        <input matInput placeholder="Last Name" required [(ngModel)]="model.last" name="last">
+    </mat-form-field>
+</div>
+<mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="Email" required [(ngModel)]="model.email" name="email" type="email">
+    <mat-error ></mat-error>
+</mat-form-field>
+<mat-form-field appearance="outline">
+    <mat-label>Subject</mat-label>
+    <input matInput placeholder="Subject" required [(ngModel)]="model.subject" name="subject" >
+</mat-form-field>
+<mat-form-field appearance="outline">
+    <mat-label>Message</mat-label>
+    <textarea matInput [(ngModel)]="model.message" name="message"></textarea>
+</mat-form-field>
+<button mat-flat-button color="primary" class="submit-col" [disabled]="!form.form.valid">Submit</button>
+</div>
+</form>
+</div>
+<div [hidden]="!submitted" class="submitted" *ngIf="submitted">
+    <h2>You submitted the following:</h2>
+    <div>
+      <div><h4>Name</h4></div>
+      <div><h4>{{ model.first }} {{model.last}}</h4></div>
+    </div>
+    <div>
+      <div><h4>Email</h4></div>
+      <div><h4>{{ model.email }}</h4></div>
+    </div>
+    <div>
+      <div><h4>Subject & Message</h4></div>
+      <div><h4>{{ model.subject }} {{model.message}}</h4></div>
+    </div>
+    <br>
+    <button mat-flat-button color="primary" (click)="submitted=false">Edit</button>
+</div>
+</div>
