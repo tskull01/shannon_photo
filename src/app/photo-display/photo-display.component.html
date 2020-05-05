@@ -1,7 +1,7 @@
 <div class="masonry" >
   <div class="item" *ngFor="let item of masonryItems;trackBy:identify;">
     <img #items (click)="displayDialog(item.path,item.id)" (contextmenu)="disableRightClick(e)"
-    src={{item.path}}  routerLink="../full"/>
+    src={{item.path}}  routerLink="../full" loading="lazy"/>
   </div>
 </div>
 

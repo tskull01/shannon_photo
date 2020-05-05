@@ -1,8 +1,9 @@
 
 var fs = require('fs');
 
-const paths = ['/assets/images/action','/assets/images/combat','/assets/images/environment',
-'/assets/images/personal','/assets/images/product']
+const paths = ['/dist/shannon-photo/assets/images/action','/dist/shannon-photo/assets/images/combat',
+'/dist/shannon-photo/assets/images/environment',
+'/dist/shannon-photo/assets/images/personal','/dist/shannon-photo/assets/images/product']
 let results = []  
 let name;
 function setResults(){
