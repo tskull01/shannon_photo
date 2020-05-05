@@ -1,8 +1,8 @@
 
 var fs = require('fs');
 
-const paths = ['./src/assets/images/action','./src/assets/images/combat','./src/assets/images/environment',
-'./src/assets/images/personal','./src/assets/images/product']
+const paths = ['.netlify/large-media/assets/images/action','.netlify/large-media/assets/images/combat','.netlify/large-media/assets/images/environment',
+'.netlify/large-media/assets/images/personal','.netlify/large-media/assets/images/product']
 let results = []  
 let name;
 function setResults(){

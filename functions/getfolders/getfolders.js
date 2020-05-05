@@ -1,7 +1,7 @@
 // Docs on event and context https://www.netlify.com/docs/functions/#the-handler-method
 
 var fs = require('fs');
-const path = 'assets/images/';
+const path = 'assets/images';
 let folders = [];
 function getFolders(){
   return new Promise((resolve, reject) => {
