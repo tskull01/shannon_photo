@@ -10,9 +10,9 @@ sizes:any;
   constructor(private http:HttpClient) { }
 
   fileSizes(){
-    return this.http.get('https://keen-colden-282a59.netlify.app/.netlify/large-media');
+    return this.http.get('.netlify/functions/filesize');
   }
   folders(){
-    return this.http.get('https://keen-colden-282a59.netlify.app/.netlify/large-media');
+    return this.http.get('.netlify/functions/getfolders');
   }
 }
