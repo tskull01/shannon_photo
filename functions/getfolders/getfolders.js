@@ -1,11 +1,12 @@
 // Docs on event and context https://www.netlify.com/docs/functions/#the-handler-method
 
 var fs = require('fs');
-const path = './src/assets/images';
+const path = ' https://keen-colden-282a59.netlify.app/.netlify/large-media';
 let folders = [];
 function getFolders(){
   return new Promise((resolve, reject) => {
     fs.readdir(path, function (err, content) {
+      console.log(content);
       folders = content; 
       if(folders.length = content.length){
         resolve(folders); 
