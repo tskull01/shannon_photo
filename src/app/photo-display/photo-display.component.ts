@@ -1,52 +1,34 @@
-import { Component, EventEmitter,Output, ViewChild, ViewChildren,QueryList,ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter,Output, ViewChildren,QueryList,ChangeDetectionStrategy } from '@angular/core';
 import { Photo } from 'src/app/photo'; 
 import { PhotoDeliveryService } from '../photo-delivery.service';
-import { FilesizeService } from '../filesize.service';
-import { trigger, stagger, style, animate, transition,query } from '@angular/animations';
+import { Folder } from '../folder';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-photo-display',
   templateUrl:'./photo-display.component.html',
   styleUrls: ['./photo-display.component.css'],
   changeDetection: ChangeDetectionStrategy.Default,
-  animations: [
-    /*
-    trigger('inOutAnimation', [
-        transition(':enter', [
-            style({ opacity:0 }),
-            animate('500ms ease-in', style({ opacity:1}))
-          ]
-        ),
-        transition(':leave', [
-            style({ opacity: 1 }),
-            animate('1s ease-in', 
-                    style({ opacity: 0 }))
-          ]
-        )
-      ]
-    )
-    */
-  ]
+  animations: []
 })
 export class PhotoDisplayComponent {
   masonryItems: Photo[] = [];
-  masonryItemsSmall:Photo[]=[]; 
-  sizeOfAlbum:number; 
-private _filter:string = 'action'; 
+  folder:Folder; 
   @ViewChildren('items')items:QueryList<any>;
-  updateMasonryLayout:boolean = false;
+  folderOrder:number[] = [];
   selectedPhoto:Photo;
+  defaultImage = '../../assets/extras/white.jpg'
+  sub:Subscription;
   @Output() setSelection = new EventEmitter();
-constructor(private photoService:PhotoDeliveryService, private fileService:FilesizeService ){
-     this.photoService.filterChange.subscribe((value) =>{
-       this._filter = value;
-       this.setSizeofAlbum(this._filter)
-       .then(() => (this.setCurrentPhotos()))
-       .then(() => (this.everythingLoaded()))
-       .then(()=>(console.log('scrolling')))
-       .then(()=> (window.scrollTo(0,0)))
-       .then(()=>(console.log('scrolled')));
-     })
+constructor(private photoService:PhotoDeliveryService){
+this.photoService.folderChange.subscribe((folder) => {
+  console.log('change')
+    this.folder = new Folder(folder.id,folder.name,folder.order,folder.displayName,folder.displayPhoto);
+    this.zeroOutArray();
+    this.formatOrder(this.folder.order);
+    this.setCurrentPhotos();
   }
+   )
+}
   ngAfterViewInit() {
     this.items.changes.subscribe(t => {
       this.ngForRendred();
@@ -55,48 +37,28 @@ constructor(private photoService:PhotoDeliveryService, private fileService:Files
   ngForRendred(){
     console.log('rendered')
   }
-  ngOnInit(): void {
-    this.setSizeofAlbum(this._filter)
-    .then(() => (this.setCurrentPhotos()))
-    .then(()=>(console.log(this.masonryItems)))
-    .then(() => (this.everythingLoaded()))
-    .then(()=>(console.log(this._filter)))
-    .then(()=> (window.scrollTo(0,0)))
-    .then(()=>(console.log('scrolled')));
-  }
-  setSizeofAlbum(currentSet){
-    //Getting file sizes from function
-    return new Promise((resolve, reject) => {
-      this.zeroOutArray();
-      this.fileService.fileSizes().subscribe((sizes) => {
-        console.log(sizes);
-      this.sizeOfAlbum = sizes[currentSet];
-      if(this.sizeOfAlbum > 1){
-        console.log('resolving');
-        resolve(); 
-      }
-      }) 
-    })
-  }
-
+formatOrder(str:string){
+let inBetween = str.split(',')
+inBetween.forEach(num => {
+  this.folderOrder.push(+num); 
+})
+}
 setCurrentPhotos(){
     //Set all of the images
-      for(let i = 1;i <= this.sizeOfAlbum; i++){
-        this.masonryItems.push(new Photo(i, `../../assets/images/${this._filter}/${this._filter}(${i}).jpg`,this._filter));
+  for(let i of this.folderOrder){
+    this.masonryItems.push(new Photo(i, `../../assets/images/${this.folder.name}/${this.folder.name}(${i}).jpg?nf_resize=fit&w=300`,this.folder.name));
   }  
+  console.log(this.masonryItems)
 } 
   disableRightClick(e){
     return false;
   }
   displayDialog(path:string, id:number){
     //Changing content view to the full photo
-    this.selectedPhoto = new Photo(id,path,this._filter);
+    this.selectedPhoto = new Photo(id,path,this.folder.name);
     this.photoService.setPhoto(this.selectedPhoto);
     this.setSelection.emit();
   }
- callLayout(){
-   console.log('calling layout')
- }
  everythingLoaded(){
    //Start animation
   console.log(this.masonryItems)
@@ -105,8 +67,8 @@ setCurrentPhotos(){
    return item.id; 
  }
  zeroOutArray(){
-  this.sizeOfAlbum = 0;
   this.masonryItems = []; 
+  this.folderOrder = [];
+  window.scrollTo(0,0);
   }
- 
 }

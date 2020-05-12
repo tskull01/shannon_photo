@@ -1,13 +1,6 @@
 <div class="masonry" >
   <div class="item" *ngFor="let item of masonryItems;trackBy:identify;">
     <img #items (click)="displayDialog(item.path,item.id)" (contextmenu)="disableRightClick(e)"
-    src={{item.path}}  routerLink="../full" loading="lazy"/>
+    [defaultImage]="defaultImage"  routerLink="../full" *ngIf="item.path" [lazyLoad]="item.path" [useSrcset]="true"/>
   </div>
 </div>
-
-
-<!--<ngx-masonry [options]='options' [@inOutAnimation] >
-  <img ngxMasonryItem #items [@inOutAnimation] (load)="callLayout()" (click)="displayDialog(item.path,item.id)" (contextmenu)="disableRightClick(e)" class="masonry-item" 
-  src={{item.path}} *ngFor="let item of masonryItems;trackBy:identify" routerLink="../full"/>
-</ngx-masonry>
--->

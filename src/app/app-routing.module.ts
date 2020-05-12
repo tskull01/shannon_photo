@@ -6,6 +6,7 @@ import { EditingComponent } from './editing/editing.component';
 import { BioComponent } from './bio/bio.component';
 import { ContactComponent } from './contact/contact.component';
 import { ConsoleComponent } from './console/console.component';
+import { LandingComponent } from './landing/landing.component';
 
 const routes: Routes = [
   { path: 'display', component: PhotoDisplayComponent },
@@ -14,8 +15,8 @@ const routes: Routes = [
   { path: 'editing', component: EditingComponent},
   { path: 'bio', component: BioComponent },
   { path: 'contact', component: ContactComponent},
-  { path: '', component: PhotoDisplayComponent},
-  { path: '**', component: PhotoDisplayComponent}
+  { path: '', component: PhotoDisplayComponent },
+  { path: '**', component: LandingComponent}
 ];
 
 @NgModule({

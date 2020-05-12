@@ -1,0 +1,12 @@
+<div *ngIf="!selectionMade">
+<div *ngFor="let f of folderDisplays" >
+  <img (click)='selectFolder(f)'src={{f}} alt="" style="max-width: 400px;">
+</div>
+</div>
+<div *ngIf="selectionMade">
+    <div *ngIf="!mobile">
+        <app-top-nav #desktop [folders]="folders"></app-top-nav>
+    <div *ngIf="mobile">
+        <app-mobile-nav #mobile [folders]="folders"></app-mobile-nav>
+    </div>
+</div>

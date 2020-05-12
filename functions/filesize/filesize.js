@@ -1,49 +1,29 @@
+/* code from functions/todos-create.js */
+var faunadb = require('faunadb'); /* Import faunaDB sdk */
 
-var fs = require('fs');
+/* configure faunaDB Client with our secret */
+const q = faunadb.query
+const client = new faunadb.Client({
+  secret: process.env.FAUNADB_SERVER_SECRET
+})
 
-const paths = ['/dist/shannon-photo/assets/images/action','/dist/shannon-photo/assets/images/combat',
-'/dist/shannon-photo/assets/images/environment',
-'/dist/shannon-photo/assets/images/personal','/dist/shannon-photo/assets/images/product']
-let results = []  
-let name;
-function setResults(){
-  let counter = 0;
-  //Function returns a promise that contains the length of the files in paths
-  return new Promise((resolve, reject)=>{
-    for( let path of paths){
-      fs.readdir(path, function (err, content) {
-         if(err){
-           console.log(err)
-         }else{
-         name = path.split('/').pop(); 
-         results[name] = content.length;
-         counter++; 
-         if(counter > 4){
-          resolve(results); 
-        }
-       }
+exports.handler = (event, context, callback) => {
+ return client.query(
+  q.Paginate(
+    q.Match(q.Index('names'))
+  )
+ )
+  .then((response) => {  
+console.log(response.data) 
+return callback(null, {
+  statusCode: 200,
+  body: JSON.stringify(response)
+})
+  }).catch((error) => {
+    console.log("error", error)
+    return callback(null, {
+      statusCode: 400,
+      body: JSON.stringify(error)
     })
-  }
   })
-}
-exports.handler = async (event, context) => {  
-  try {
-    console.log(__dirname)
-    console.log(process.cwd())
-    console.log(fs.existsSync('dist') && fs.lstatSync('dist').isDirectory())
-    console.log(fs.existsSync('assets') && fs.lstatSync('assets').isDirectory())
-    console.log(fs.existsSync('src') && fs.lstatSync('src').isDirectory())
-    console.log(fs.existsSync('shannon-photo') && fs.lstatSync('shannon-photo').isDirectory())
-return setResults().then((results)=>({
-   statusCode: 200, body:JSON.stringify({
-     'action' : `${results['action']}`,
-     'combat' : `${results['combat']}`,
-     'environment' : `${results['environment']}`,
-     'product' : `${results['product']}`,
-     'personal' : `${results['personal']}`
-  }) 
-})); 
-  } catch (err) {
-    return { statusCode: 500, body: err.toString() }
-  }
 }

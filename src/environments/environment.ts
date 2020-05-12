@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  FAUNADB_SERVER_SECRET: 'fnADrLdQLQACErCOjExz3HU0_aSRY4P4OaGLG3h5'
+
 };
 
 /*

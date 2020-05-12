@@ -20,21 +20,9 @@
             <a routerLink="/contact" routerLinkActive="active">Contact</a>
           </li>
         </ul>
-        <ul class="link-style" *ngIf="photo">
-          <li (click)="setFilter('action');navSelection(1);">
-            Action
-          </li>
-          <li (click)="setFilter('combat');navSelection(1);">
-          Combat Sports 
-          </li>
-          <li (click)="setFilter('environment');navSelection(1);">
-          Environmental 
-          </li>
-          <li (click)="setFilter('product');navSelection(1);">
-           Product/Lifestyle 
-          </li>
-          <li (click)="setFilter('personal');navSelection(1);">
-           Personal Projects 
+        <ul #folderList class="folder-list" *ngFor="let f of folders">
+          <li (click)=setFolder(f) *ngIf="photo">
+            {{f.displayName}}
           </li>
         </ul>
       </div>

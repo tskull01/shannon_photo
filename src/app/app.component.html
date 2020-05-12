@@ -1,6 +1,3 @@
-<div *ngIf="!mobile">
-  <app-top-nav #desktop></app-top-nav>
-  </div>
-  <div *ngIf="mobile">
-  <app-mobile-nav #mobile></app-mobile-nav>
-  </div>
+<div *ngIf="!loading">
+  <app-landing [folders]="folders"></app-landing>
+</div>

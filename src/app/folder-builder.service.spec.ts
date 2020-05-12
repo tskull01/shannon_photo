@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FilesizeService } from './filesize.service';
+import { FolderBuilderService } from './folder-builder.service';
 
-describe('FilesizeService', () => {
-  let service: FilesizeService;
+describe('FolderBuilderService', () => {
+  let service: FolderBuilderService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FilesizeService);
+    service = TestBed.inject(FolderBuilderService);
   });
 
   it('should be created', () => {

@@ -2,7 +2,6 @@ import { Component, OnInit,Output, EventEmitter } from '@angular/core';
 import { PhotoDeliveryService } from '../photo-delivery.service'; 
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { FilesizeService } from '../filesize.service';
 @Component({
   selector: 'app-photo-full',
   templateUrl: './photo-full.component.html',

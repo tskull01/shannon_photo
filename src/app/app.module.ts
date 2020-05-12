@@ -22,7 +22,8 @@ import { ConsoleComponent } from './console/console.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import {enableProdMode} from '@angular/core';
-
+import { LandingComponent } from './landing/landing.component';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 enableProdMode();
    
 @NgModule({
@@ -36,7 +37,8 @@ enableProdMode();
     PhotoFullComponent,
     PhotoDisplayComponent,
     TopNavComponent,
-    ConsoleComponent
+    ConsoleComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,
@@ -49,8 +51,8 @@ enableProdMode();
     FormsModule,
    MatButtonModule,
    MatInputModule,
-   ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
-   
+   ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+   LazyLoadImageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

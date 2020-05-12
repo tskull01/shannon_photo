@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FilesizeService } from './filesize.service';
+import { FolderBuilderService } from './folder-builder.service';
+import { Folder } from './folder';
 
 @Component({
   selector: 'app-root',
@@ -8,13 +9,19 @@ import { FilesizeService } from './filesize.service';
 })
 export class AppComponent implements OnInit {
   mobile:boolean;
+  loading:boolean; 
   title = 'ShannonPhoto';
-incoming:any;
-constructor(private fileService:FilesizeService){}
+  incoming:any;
+  folders:Folder[];
+
+constructor(private folderService:FolderBuilderService){}
   ngOnInit(){
-    this.fileService.folders().subscribe((folders) =>{
-      console.log(folders);
-    })
-    window.screen.width < 450 ? this.mobile = true : this.mobile = false; 
+  this.loading = true;
+  this.getFolders();
+  }
+ async getFolders(){
+    this.folders = await this.folderService.getFolders();
+    console.log('folders are here')
+    this.loading = false;  
   }
 }

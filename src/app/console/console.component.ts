@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FilesizeService } from '../filesize.service';
+import { PhotoDeliveryService } from '../photo-delivery.service';
+
 
 @Component({
   selector: 'app-console',
@@ -9,13 +10,16 @@ import { FilesizeService } from '../filesize.service';
 export class ConsoleComponent implements OnInit {
 
   folders:any;
-  constructor( private fileService:FilesizeService) { }
+  folder:any;
+  constructor(private photoService:PhotoDeliveryService) {
+    this.photoService.folderChange.subscribe((folder) => {
+      console.log(folder.name)
+      this.folder = folder;
+     })
+   }
 
   ngOnInit(): void {
-    this.fileService.folders().subscribe((folders) =>{
-      let string = folders['message'];
-      this.folders = string.split(',')
-    })
+   console.log(this.folder)
   }
 
 }

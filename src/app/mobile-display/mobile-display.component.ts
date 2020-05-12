@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges, ViewChild } from '@angular/core';
 import {Photo} from '../photo';
 import{SwiperComponent, SwiperConfigInterface} from 'ngx-swiper-wrapper';
-import { FilesizeService } from '../filesize.service';
+
 
 @Component({
   selector: 'app-mobile-display',
@@ -38,7 +38,7 @@ export class MobileDisplayComponent {
     pagination: false
   };
  
-  constructor(private fileService:FilesizeService) { }
+  constructor() { }
 
 ngOnChanges(changes:SimpleChanges){
   this.setSizeofAlbum(this.filter).then(() => (this.setCurrentPhotos()))
@@ -47,7 +47,7 @@ ngOnChanges(changes:SimpleChanges){
   });
 }
  async setSizeofAlbum(currentSet){
-   return new Promise((resolve, reject)=>{
+   /*return new Promise((resolve, reject)=>{
     this.zeroOutArray();
     this.fileService.fileSizes().subscribe((sizes) => {
       this.sizeOfAlbum = sizes[currentSet];
@@ -55,7 +55,7 @@ ngOnChanges(changes:SimpleChanges){
         resolve();
       }
     }) 
-   })
+   })*/
   }
   setCurrentPhotos(){
       for(let i = 1;i <= this.sizeOfAlbum; i++){

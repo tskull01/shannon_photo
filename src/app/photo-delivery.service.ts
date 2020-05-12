@@ -1,24 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Injectable, SimpleChanges } from '@angular/core';
 import { Photo } from './photo'
-import { Subject } from 'rxjs';
-import { FilesizeService } from './filesize.service';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
+import { Folder } from './folder';
 @Injectable({
   providedIn: 'root'
 })
 export class PhotoDeliveryService {
   selectedPhoto: Photo;
-  filter:string = 'action';
-  filterChange:Subject<string> = new Subject<string>();
+  folder:Folder;
+  folderChange = new BehaviorSubject<Folder>(this.folder);
   url:string;
   baseUrl:string = '../assets/images/';
   folderMax:number; 
-    constructor(private fileService:FilesizeService) { 
-      this.filterChange.subscribe((value) => {
-        console.log(value)
-        this.filter = value;
-      })
+    constructor() {
+      this.folderChange.subscribe(value => 
+        this.folder = value
+      )
     }
-  //setting the path to deliver to cloudinary
     setPhoto(photo:Photo){
   this.selectedPhoto = photo; 
     }
@@ -28,20 +26,16 @@ export class PhotoDeliveryService {
       return this.url;
     }
     increaseId(){
-      this.selectedPhoto.id >= this.folderMax ?   this.selectedPhoto.id = 1 : this.selectedPhoto.id++; 
+      this.selectedPhoto.id >= this.folderMax ? this.selectedPhoto.id = 1 : this.selectedPhoto.id++; 
     }
     decreaseId(){
       this.selectedPhoto.id <= 1 ? this.selectedPhoto.id = this.folderMax : this.selectedPhoto.id--; 
     }
-
-    setFilter(filter){
-      this.filterChange.next(filter);
-    }
-
-    getFilter(){
-      return this.filter; 
+    setFolder(folder){
+      console.log(folder)
+      this.folderChange.next(folder);
     }
     setFolderMax(){
-     this.fileService.fileSizes().subscribe(data => this.folderMax = data[this.selectedPhoto.category]) 
+    this.folder.order.length;
     }
 }
