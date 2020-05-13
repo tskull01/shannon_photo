@@ -59,7 +59,7 @@ ngOnChanges(changes:SimpleChanges){
   }
   setCurrentPhotos(){
       for(let i = 1;i <= this.sizeOfAlbum; i++){
-        this.carouselItems.push(new Photo(i, `../../assets/images/${this.filter}/${this.filter}(${i}).jpg`,this.filter));
+        this.carouselItems.push(new Photo(i, `../../assets/images/${this.filter}/${this.filter}(${i}).jpg`,this.filter,false));
       }
   }
   zeroOutArray(){
