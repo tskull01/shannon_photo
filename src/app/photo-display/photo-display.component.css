@@ -61,7 +61,7 @@ img.loaded {
     from { opacity: 0; 
     box-shadow: none;}
     to { opacity: 1; 
-        box-shadow: 2px 2px 4px 0 #ccc;} 
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);} 
   }
   .hidden{
       display:none; 

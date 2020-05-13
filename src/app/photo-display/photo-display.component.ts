@@ -16,7 +16,6 @@ export class PhotoDisplayComponent {
   @ViewChildren('items')items:QueryList<ElementRef>;
   folderOrder:number[] = [];
   selectedPhoto:Photo;
-  defaultImage = '../../assets/extras/white.jpg'
   sub:Subscription;
   renderCount:number = 0; 
   @Output() setSelection = new EventEmitter();
@@ -48,7 +47,7 @@ inBetween.forEach(num => {
 setCurrentPhotos(){
     //Set all of the images
   for(let i of this.folderOrder){
-    this.masonryItems.push(new Photo(i, `../../assets/images/${this.folder.name}/${this.folder.name}(${i}).jpg?nf_resize=fit&w=300`,this.folder.name, false));
+    this.masonryItems.push(new Photo(i, `../../assets/images/${this.folder.name}/${this.folder.name}(${i}).jpg?nf_resize=fit&w=400`,this.folder.name, false));
   }  
   console.log(this.masonryItems)
 } 

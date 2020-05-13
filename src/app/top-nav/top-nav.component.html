@@ -8,7 +8,7 @@
         <ul>
           <li (click)="navSelection(1);photoSelected();"
             class="opendropdown">
-            <a routerLink="/display" routerLinkActive="active">Photography</a> 
+            Photography
           </li>
           <li (click)="navSelection(2);">
             <a routerLink="/editing" routerLinkActive="active">Retouching</a>  
@@ -20,9 +20,9 @@
             <a routerLink="/contact" routerLinkActive="active">Contact</a>
           </li>
         </ul>
-        <ul #folderList class="folder-list" *ngFor="let f of folders">
-          <li (click)=setFolder(f) *ngIf="photo">
-            {{f.displayName}}
+        <ul #folderList class="folder-list" *ngIf="photo">
+          <li (click)=setFolder(f) *ngFor="let f of folders">
+          <a routerLink="/display" routerLinkActive="active">{{f.displayName}}</a> 
           </li>
         </ul>
       </div>
@@ -32,28 +32,3 @@
 <router-outlet ></router-outlet>
 </main>
 </div>
-
-
-<!--
-  <div class="content"> 
-      <div [ngSwitch]="selection">
-          <div *ngSwitchCase="1">
-        <app-photo-display #display [animateHide]=animateHide [filter]=filter (setSelection)='selectDisplay()' 
-        (showAnimation)='setShow()'></app-photo-display>
-          </div>
-          <div *ngSwitchCase="4">
-            <app-contact></app-contact>
-          </div>
-          <div *ngSwitchCase="3">
-            <app-bio></app-bio>
-          </div>
-          <div *ngSwitchCase="2">
-              <app-editing></app-editing>
-            </div>
-          <div *ngSwitchCase="5">
-            <app-photo-full (return)="navSelection(1)"></app-photo-full>
-          </div>
-        </div>
-  </div>
-</div>
--->

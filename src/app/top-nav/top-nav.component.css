@@ -19,7 +19,7 @@
         background: white;
         z-index: 2; 
     }
-    .grid-container ul li, .grid-container ul li a {
+    .grid-container ul li, .grid-container ul li a,.folder-list li {
         position: relative;
         display: inline-block;
         outline: none;
@@ -50,7 +50,7 @@
         z-index: 2;
         width:100%;
     }
-    .grid-container ul li {
+    .grid-container ul li, .folder-list li{
         position: relative;
         display: inline-block;
         outline: none;
@@ -67,8 +67,10 @@
       
     }
 }
-.grid-container ul li:hover{
+.grid-container ul li:hover,.folder-list li:hover{
     opacity:1; 
+    transform: translateY(-0.5px);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.18);
 }
 .header{
 text-align: center;
@@ -79,7 +81,7 @@ height: 100%;
 .header h2{
     margin-top:1vh;
 }
-.grid-container ul{
+.grid-container ul,.folder-list{
     list-style: none;
     display: inline-flex;
 }
@@ -135,20 +137,4 @@ height: 100%;
 .grid-container ul li a:visited{
     color:black;
     text-decoration: none;
-}
-.folder-list li{
-    position: relative;
-    display: inline-block;
-    outline: none;
-    color: black;
-    text-decoration: none;
-    text-transform: uppercase;
-    cursor: pointer;
-    text-shadow: 0 0 1px rgba(255,255,255,0.3);
-    padding: 0 2vw;
-    height: 2.8vw;
-    line-height: 2.8vw;
-    text-decoration: none;
-  list-style: none;
-  opacity:0.7;
 }

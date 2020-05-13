@@ -23,7 +23,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import {enableProdMode} from '@angular/core';
 import { LandingComponent } from './landing/landing.component';
-import { LazyLoadImageModule } from 'ng-lazyload-image';
 enableProdMode();
    
 @NgModule({
@@ -51,8 +50,7 @@ enableProdMode();
     FormsModule,
    MatButtonModule,
    MatInputModule,
-   ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-   LazyLoadImageModule
+   ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -24,7 +24,6 @@
     "@angular/service-worker": "^9.1.2",
     "core-js": "^3.6.5",
     "faunadb": "^2.14.0",
-    "ng-lazyload-image": "^7.1.0",
     "ngx-swiper-wrapper": "^9.0.1",
     "rxjs": "~6.5.5",
     "swiper": "^5.3.8",
