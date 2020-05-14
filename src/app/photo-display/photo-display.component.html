@@ -1,8 +1,13 @@
-<div class="masonry" >
-  <div class="item" *ngFor="let item of masonryItems;trackBy:identify;index as i;">
-    <img #items class="hidden" (click)="displayDialog(item.path,item.id)" (contextmenu)="disableRightClick(e)" (load)="showImage(i)"
-     src={{item.path}} routerLink="../full" />
+<div class="masonry">
+  <div class="item" *ngFor="let obs of observer | async;index as i;">
+    <img #items class="hidden" (click)="displayDialog(obs)" (contextmenu)="disableRightClick(e)" (load)="showImage(i)"
+     src={{obs}} routerLink="../full" />
   </div>
 </div>
 
-<!--[lazyLoad]="item.path" [useSrcset]="true" -->
+<div class="moveSpinner">
+<mat-progress-spinner *ngIf="spinner"
+[mode]="mode"
+[value]="value">
+</mat-progress-spinner>
+</div>

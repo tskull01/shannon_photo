@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    width: 100vw;
+  }
+  
+  .item {
+    flex:auto;
+  }
+  
+  .item + .item {
+    margin-left: 2%;
+  }
+  img{
+    max-width: 1fr;
+  }

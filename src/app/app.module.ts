@@ -23,6 +23,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import {enableProdMode} from '@angular/core';
 import { LandingComponent } from './landing/landing.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 enableProdMode();
    
 @NgModule({
@@ -50,7 +51,8 @@ enableProdMode();
     FormsModule,
    MatButtonModule,
    MatInputModule,
-   ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+   ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+   MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
