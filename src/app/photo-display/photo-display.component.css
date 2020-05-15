@@ -55,7 +55,7 @@ masonry { /* Masonry container */
     }
 }
 img.loaded { 
-    animation: fadein 5s;
+    animation: fadein 2s;
   }
   @keyframes fadein {
     from { opacity: 0; 
@@ -67,7 +67,7 @@ img.loaded {
       display:none; 
   }
   .moveSpinner{
-    -webkit-column-count: 1;
-    -moz-column-count:1;
-    column-count: 1;
+    display: grid;
+    grid-template-columns: 45vw 10vw 45vw;
+    grid-template-rows: 10vh;
   }

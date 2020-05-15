@@ -1,7 +1,7 @@
-<div *ngIf="!selectionMade" class="container">
-<div *ngFor="let f of folderDisplays" class="item">
-  <img (click)='selectFolder(f)'src={{f}} alt="">
-</div>
+<div *ngIf="!selectionMade" class="container" >
+    <div *ngFor="let f of folderDisplays" > <!--Add null check -->
+        <img (click)='selectFolder(f)'src={{f}} alt="" class="item"> 
+    </div>
 </div>
 <div *ngIf="selectionMade">
     <div *ngIf="!mobile">

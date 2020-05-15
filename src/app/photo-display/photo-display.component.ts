@@ -21,7 +21,7 @@ export class PhotoDisplayComponent {
   sub:Subscription;
   renderCount:number = 0; 
   observer:Observable<string[]>;
-  mode: ProgressSpinnerMode = "determinate";
+  mode: ProgressSpinnerMode = "indeterminate";
   value:number;
   @Output() setSelection = new EventEmitter();
 constructor(private photoService:PhotoDeliveryService, private renderer:Renderer2){
@@ -52,7 +52,7 @@ setCurrentPhotos(){
   let stringArray = [];
   for(let i of this.folderOrder){
     this.masonryItems.push(new Photo(i, `../../assets/images/${this.folder.name}/${this.folder.name}(${i}).jpg?nf_resize=fit&w=400`,this.folder.name, false));
-    stringArray.push(this.masonryItems[i].path);
+    stringArray.push(this.masonryItems[i - 1].path);
   } 
   this.observer = new Observable((obs) => {
     obs.next(stringArray);
@@ -72,8 +72,8 @@ setCurrentPhotos(){
   }
 
  zeroOutArray(){
-   this.renderCount = 0;
-   this.value = 0; 
+  this.renderCount = 0;
+  // Determinate spinner option this.value = 0; 
   this.masonryItems = []; 
   this.spinner = true;
   if(this.items){
@@ -86,7 +86,7 @@ setCurrentPhotos(){
   }
   showImage(item){
   this.renderCount++;
-  this.value = Math.round((this.renderCount/this.folderOrder.length) * 100);
+  // Determinate spinner option this.value = Math.round((this.renderCount/this.folderOrder.length) * 100);
   if(this.renderCount === this.folderOrder.length){
     this.spinner = false;
     this.items.forEach((item) => {

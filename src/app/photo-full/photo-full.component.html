@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" (keydown.ArrowRight)="increaseId()" (keydown.ArrowLeft)="decreaseId()">
     <div class="button-grid">
     <div></div>
       <div>
@@ -9,7 +9,7 @@
       svgIcon="grid" aria-hidden="false" aria-label="Grid SVG icon"></mat-icon>
     </div>
     <div class="arrow-l" (click)="decreaseId()"></div>
-    <img (click)="goBack()" routerLink="../display" data-src={{publicId}}
-    class="cld-responsive">
+    <img #photo (click)="goBack()" routerLink="../display" data-src={{publicId}}
+    class="hidden" (load)="easeIn()" autofocus>
     <div class="arrow-r" (click)="increaseId()" ></div>
   </div>

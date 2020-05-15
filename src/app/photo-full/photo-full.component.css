@@ -1,9 +1,12 @@
+.hidden{
+    display:none; 
+}
 .container{
     display: grid;
-    grid-template-columns: 10vw 7vw 76vw 7vw;
+    grid-template-columns: 8vw 8vw 76vw 8vw;
     grid-template-rows: 80vh;
-    margin-left:2vw;
-    margin-right:2vw;
+   /* margin-left:0.5vw;
+    margin-right:0.5vw;*/
     margin-bottom:1vw;
     background-color: rosybrown;
 } 
@@ -45,3 +48,15 @@ mat-icon{
     background-color: blueviolet;
     cursor: url('../../assets/icons/arrow-r.svg'), auto;
 }
+img.loaded { 
+    animation: fadein 1s;
+  }
+  @keyframes fadein {
+    from { opacity: 0; 
+    box-shadow: none;}
+    to { opacity: 1; 
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);} 
+  }
+  img:focus{
+      outline: none;
+  }
