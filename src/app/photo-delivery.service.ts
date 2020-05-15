@@ -15,7 +15,6 @@ export class PhotoDeliveryService {
     constructor() {
       this.folderChange.subscribe(value => 
         this.folder = value
-        
       )
     }
     setPhoto(photo:Photo){
@@ -26,10 +25,7 @@ export class PhotoDeliveryService {
       return this.url;
     }
     increaseId(){
-      console.log(this.selectedPhoto.id);
-      console.log(this.folderMax);
       this.folderMax = this.getFolderMax();
-      console.log(this.folderMax)
       this.selectedPhoto.id >= this.folderMax.length ? this.selectedPhoto.id = 1 : this.selectedPhoto.id++; 
     }
     decreaseId(){
