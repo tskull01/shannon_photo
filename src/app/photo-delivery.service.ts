@@ -20,8 +20,11 @@ export class PhotoDeliveryService {
     setPhoto(photo:Photo){
   this.selectedPhoto = photo; 
     }
+
     getPhoto():string{
-      this.url = this.baseUrl +`${this.selectedPhoto.category}/${this.selectedPhoto.category}(${this.selectedPhoto.id}).jpg`;
+      //Request photo depending on screen size 
+      screen.width < 1000 ? this.url = this.baseUrl +`${this.selectedPhoto.category}/${this.selectedPhoto.category}(${this.selectedPhoto.id}).jpg?nf_resize=fit&w=900` :
+      this.url = this.baseUrl +`${this.selectedPhoto.category}/${this.selectedPhoto.category}(${this.selectedPhoto.id}).jpg?nf_resize=fit&w=1200`; 
       return this.url;
     }
     increaseId(){

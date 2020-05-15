@@ -51,7 +51,7 @@ setCurrentPhotos(){
     //Set all of the images
   let stringArray = [];
   for(let i of this.folderOrder){
-    this.masonryItems.push(new Photo(i, `../../assets/images/${this.folder.name}/${this.folder.name}(${i}).jpg?nf_resize=fit&w=400`,this.folder.name, false));
+    this.masonryItems.push(new Photo(i, `../../assets/images/${this.folder.name}/${this.folder.name}(${i}).jpg?nf_resize=fit&w=450`,this.folder.name, false));
     stringArray.push(this.masonryItems[i - 1].path);
   } 
   this.observer = new Observable((obs) => {
