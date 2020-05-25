@@ -1,0 +1,35 @@
+.container{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   overflow: hidden;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    border: 1px solid purple;
+  }
+ @media only screen and (max-width: 500px){
+   .item{ 
+       height: 75vh;
+     }
+ }
+ @media only screen and (min-width: 501px) and (max-width: 1000px){
+   .item{
+       height: 60vh;
+       border: 1px solid red;
+       padding: 10px; 
+     }
+ }
+ @media only screen and (min-width: 1000px){
+   .item{
+       height: 75vh;
+       padding: 10px;
+ 
+     }
+ }
+ .item{
+   position:relative;
+   border: 1px solid green;
+   padding:3vw;
+    box-sizing: border-box;
+ }

@@ -1,11 +1,4 @@
-.container {
-  display: grid;
-  /* define the number of grid columns */
-  grid-template-columns: repeat( auto-fit, minmax(400px, 1fr) );
-  max-width: 100vw;
-  height:100vh;
-  }
-  .item{
-    max-width: 100%;
-    margin: 1vw;
-  }
+.container{ 
+  height: 10vh;
+  overflow-y: scroll;
+}

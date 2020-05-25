@@ -24,6 +24,10 @@ import { environment } from '../environments/environment';
 import {enableProdMode} from '@angular/core';
 import { LandingComponent } from './landing/landing.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { LandingElementsComponent } from './landing-elements/landing-elements.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
+
 enableProdMode();
    
 @NgModule({
@@ -38,7 +42,8 @@ enableProdMode();
     PhotoDisplayComponent,
     TopNavComponent,
     ConsoleComponent,
-    LandingComponent
+    LandingComponent,
+    LandingElementsComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +57,8 @@ enableProdMode();
    MatButtonModule,
    MatInputModule,
    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-   MatProgressSpinnerModule
+   MatProgressSpinnerModule,
+   InfiniteScrollModule
   ],
   providers: [],
   bootstrap: [AppComponent]

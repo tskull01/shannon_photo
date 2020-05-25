@@ -11,4 +11,5 @@ body::-webkit-scrollbar {
 :root {
     --swiper-theme-color: rgba(255, 255, 255, 0) !important;
     --swiper-navigation-size: 0px !important;
+    scroll-behavior: smooth;
 }

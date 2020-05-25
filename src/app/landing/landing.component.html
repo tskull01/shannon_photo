@@ -1,6 +1,13 @@
-<div *ngIf="!selectionMade" class="container" >
-    <div *ngFor="let f of folderDisplays" > <!--Add null check -->
-        <img (click)='selectFolder(f)'src={{f}} alt="" class="item"> 
+<div #container class="container">
+    <div #scroller
+        infinite-scroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="onScroll()"
+      >
+      <div *ngFor="let f of folderDisplays;">
+        <h6>{{f}}</h6>
+        </div>
     </div>
 </div>
 <div *ngIf="selectionMade">

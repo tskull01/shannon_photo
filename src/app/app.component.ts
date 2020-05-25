@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   loading:boolean; 
   title = 'ShannonPhoto';
   incoming:any;
-  folders:Folder[];
+  folders:Folder[] = [];
 
 constructor(private folderService:FolderBuilderService){}
   ngOnInit(){
@@ -22,6 +22,9 @@ constructor(private folderService:FolderBuilderService){}
  async getFolders(){
     this.folders = await this.folderService.getFolders();
     console.log('folders are here')
+    console.log(this.folders);
+    if(this.folders){
     this.loading = false;  
+    }
   }
 }
