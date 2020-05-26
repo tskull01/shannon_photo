@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PhotoDeliveryService } from '../photo-delivery.service';
+import { FolderBuilderService } from '../folder-builder.service';
+import { Folder } from '../folder';
 
 
 @Component({
@@ -9,17 +10,32 @@ import { PhotoDeliveryService } from '../photo-delivery.service';
 })
 export class ConsoleComponent implements OnInit {
 
-  folders:any;
+  folders:Folder[];
   folder:any;
-  constructor(private photoService:PhotoDeliveryService) {
-    this.photoService.folderChange.subscribe((folder) => {
-      console.log(folder.name)
-      this.folder = folder;
-     })
+ addingFolder:boolean;
+ folderView:boolean; 
+  constructor(private folderService: FolderBuilderService) {
+  this.folderService.returnAllFolders().then(
+    (folders) => this.folders = folders
+  )
    }
 
   ngOnInit(): void {
    console.log(this.folder)
   }
 
+  createFolder(folderName){
+   let newFolder = new Folder(this.getNextId(),this.formatFolderName(folderName),'',folderName,'1')
+   this.folderService.addNewFolder(newFolder); 
+  }
+
+  getNextId(){
+    return this.folders[this.folders.length].id + 1; 
+  }
+formatFolderName(name:string){
+return name.toLowerCase().trim();
+}
+addFolder(){
+
+}
 }

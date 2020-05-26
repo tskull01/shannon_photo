@@ -2,8 +2,7 @@ import { Component, OnInit, Input, ViewChildren, QueryList, ElementRef,  ViewChi
 import { Folder } from '../folder';
 import { PhotoDeliveryService } from '../photo-delivery.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import * as InfiniteScroll from 'ngx-infinite-scroll';
-
+import { ScrollDispatcher, CdkScrollable } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-landing',
@@ -17,29 +16,36 @@ mobile:boolean;
 folderDisplays:string[] = []; 
 setTween: any; 
 @ViewChildren('folders')foldersDom:QueryList<ElementRef>
-@ViewChild('scroller') scroller:InfiniteScroll.InfiniteScrollDirective; 
-@ViewChild('container')container:ElementRef; 
+@ViewChild(CdkScrollable)container:CdkScrollable; 
 @Input('folders')folders:Folder[]; 
 photoTransform:string;
 folderElements: Element[] = [];
 folderLimit:number; 
-selector:string = '.container';
-horizontalValue:boolean = true; 
-throttle = 300;
-  scrollDistance = 1;
-  scrollUpDistance = 2;
-  constructor(private photoDelivery:PhotoDeliveryService, private router:Router, private route:ActivatedRoute) {}
+
+  constructor(private photoDelivery:PhotoDeliveryService, private router:Router, private route:ActivatedRoute,
+    private scroller:ScrollDispatcher) {}
 
   ngOnInit(): void {
     this.router.navigate([`./`], { relativeTo: this.route });
     this.photoTransform = this.setPhotoTransform(); 
     window.screen.width < 450 ? this.mobile = true : this.mobile = false; 
    this.folderDisplays.length < 1 ? this.setPaths() : console.log('paths set');
+   this.setPaths();
    this.folderLimit = this.folders.length;
-  
   }
 ngAfterViewChecked(): void {
-  this.scroller.infiniteScrollContainer = this.container.nativeElement;
+
+  this.folderElements = this.foldersDom.map((folder) => folder.nativeElement)
+ //If scrollX equal to last image before dummy image right edge set scrollLeft on the container to 0 otherwise add to scroll left;
+ this.scroller.scrolled().subscribe((scroll) => {
+  this.container.elementScrolled().subscribe((event) => {
+    event.preventDefault();
+   let containerRef =  this.container.getElementRef();
+    if(containerRef.nativeElement.scrollLeft >= this.folderElements[this.folderElements.length - 1].getBoundingClientRect().right){
+      containerRef.nativeElement.scrollLeft = 0; 
+    }
+  })
+ })
 }
 setPhotoTransform(){
 let transform = '';
@@ -78,6 +84,19 @@ selectFolder(folder){
   }
   onScroll(){
     console.log('scrolling')
+  }
+scrollHorizontally(e) {
+    var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+    var scrollSpeed = 60; // Janky jank <<<<<<<<<<<<<<
+    document.documentElement.scrollLeft -= (delta * scrollSpeed);
+    document.body.scrollLeft -= (delta * scrollSpeed);
+    e.preventDefault();
+  }
+  scrollHandle(e:WheelEvent){
+    var delta = Math.max(-1, Math.min(1, (e.deltaY || -e.detail)));
+    var scrollSpeed = 60; // Janky jank <<<<<<<<<<<<<<
+    let containerRef = this.container.getElementRef();
+    containerRef.nativeElement.scrollLeft -= (delta * scrollSpeed);
   }
 }
 

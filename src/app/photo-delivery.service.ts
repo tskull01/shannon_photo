@@ -1,6 +1,6 @@
 import { Injectable, SimpleChanges } from '@angular/core';
 import { Photo } from './photo'
-import { Subject, Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Folder } from './folder';
 @Injectable({
   providedIn: 'root'

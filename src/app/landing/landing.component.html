@@ -1,15 +1,11 @@
-<div #container class="container">
-    <div #scroller
-        infinite-scroll
-        [infiniteScrollDistance]="2"
-        [infiniteScrollThrottle]="50"
-        (scrolled)="onScroll()"
-      >
-      <div *ngFor="let f of folderDisplays;">
-        <h6>{{f}}</h6>
-        </div>
-    </div>
+<div cdkScrollable (wheel)="scrollHandle($event)" #container class="container">
+    <div #folders *ngFor="let f of folderDisplays;" >
+      <img src={{f}} alt="Shannon Schultz Photo" class="item">
+      <h6></h6>
+     </div>
 </div>
+
+
 <div *ngIf="selectionMade">
     <div *ngIf="!mobile">
         <app-top-nav #desktop [folders]="folders"></app-top-nav>

@@ -1,4 +1,28 @@
 .container{ 
-  height: 10vh;
-  overflow-y: scroll;
+  height: 100vh;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  align-items: center;
+  white-space: nowrap;
+
+}
+@media screen and (max-width: 500px) {
+  .item{
+    height: 75vh;
+  }
+}
+@media screen and (min-width: 501px) and (max-width:1000) {
+  .item{
+    height: 75vh;
+  }
+}
+@media screen and (min-width: 1001px) {
+  .item{
+    height: 75vh;
+  }
+}
+.item{
+  padding:3vw;
+  
 }

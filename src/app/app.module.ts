@@ -25,7 +25,7 @@ import {enableProdMode} from '@angular/core';
 import { LandingComponent } from './landing/landing.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LandingElementsComponent } from './landing-elements/landing-elements.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 
 enableProdMode();
@@ -58,7 +58,7 @@ enableProdMode();
    MatInputModule,
    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
    MatProgressSpinnerModule,
-   InfiniteScrollModule
+   ScrollingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

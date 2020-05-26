@@ -11,7 +11,9 @@ export class FolderBuilderService {
   folderNum:number; 
   
   constructor(private http:HttpClient) { }
-
+addNewFolder(folder:Folder){
+this.http.put
+}
 numberOfFolders(){
   this.http.get('.netlify/functions/filesize').subscribe((data) => {
     this.folderNum = data['data'].length
@@ -22,7 +24,13 @@ async getFolders(){
  let result = await this.folders();
 return result; 
 }
-
+async returnAllFolders(){
+  if(this.allFolders){
+    return this.allFolders;
+  }else{
+    return await this.folders();
+  }
+}
 async folders(){
   this.numberOfFolders();
   let data = await this.http.get('.netlify/functions/getfolders').toPromise();
