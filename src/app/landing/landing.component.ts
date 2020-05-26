@@ -3,7 +3,7 @@ import { Folder } from '../folder';
 import { PhotoDeliveryService } from '../photo-delivery.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ScrollDispatcher, CdkScrollable } from '@angular/cdk/scrolling';
-
+import { TweenLite} from 'gsap'; 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
@@ -14,14 +14,13 @@ export class LandingComponent implements OnInit {
 selectionMade:boolean = false;
 mobile:boolean;
 folderDisplays:string[] = []; 
-setTween: any; 
 @ViewChildren('folders')foldersDom:QueryList<ElementRef>
 @ViewChild(CdkScrollable)container:CdkScrollable; 
 @Input('folders')folders:Folder[]; 
 photoTransform:string;
 folderElements: Element[] = [];
 folderLimit:number; 
-
+folderTween:TweenLite;
   constructor(private photoDelivery:PhotoDeliveryService, private router:Router, private route:ActivatedRoute,
     private scroller:ScrollDispatcher) {}
 
@@ -47,6 +46,9 @@ ngAfterViewChecked(): void {
   })
  })
 }
+ngOnDestroy(): void {
+  this.scroller.deregister(this.container);
+}
 setPhotoTransform(){
 let transform = '';
 if(window.screen.width < 500){
@@ -65,6 +67,9 @@ selectFolder(folder){
       if(f.name === holder[4]){
         console.log('matched');
         console.log(f)
+        for(let element of this.folderElements){
+          TweenLite.to(element,1, {opacity: 0 }).play(); 
+        }
         this.selectionMade = true;
       this.photoDelivery.setFolder(f); 
       }

@@ -23,6 +23,7 @@ export class PhotoDisplayComponent {
   observer:Observable<string[]>;
   mode: ProgressSpinnerMode = "indeterminate";
   value:number;
+  diameter:number = 50;
   @Output() setSelection = new EventEmitter();
 constructor(private photoService:PhotoDeliveryService, private renderer:Renderer2){
 this.photoService.folderChange.subscribe((folder) => {

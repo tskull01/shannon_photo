@@ -1,32 +1,23 @@
 <div class="container">
   <div #fullnav class="wrapper">
     <div class="header">
-      <h2>SHANNON SCHULTZ PHOTOGRAPHY</h2>
+      <h3>SHANNON SCHULTZ PHOTO</h3>
     </div>
-    <div class="nav" id="sticky">
-      <div #grid class="grid-container">
+    <div>
+    </div>
+      <div class="grid-container">
         <ul>
-          <li (click)="navSelection(1);photoSelected();"
-            class="opendropdown">
-            Photography
-          </li>
+          <li (click)=setFolder(f) *ngFor="let f of folders">
+            <a routerLink="/display" routerLinkActive="active">{{f.displayName}}</a> 
+            </li>
           <li (click)="navSelection(2);">
-            <a routerLink="/editing" routerLinkActive="active">Retouching</a>  
-          </li>
-          <li (click)="navSelection(3);">
             <a routerLink="/bio" routerLinkActive="active">Bio</a> 
           </li>
-          <li (click)="navSelection(4);">
+          <li (click)="navSelection(3);">
             <a routerLink="/contact" routerLinkActive="active">Contact</a>
           </li>
         </ul>
-        <ul #folderList class="folder-list" *ngIf="photo">
-          <li (click)=setFolder(f) *ngFor="let f of folders">
-          <a routerLink="/display" routerLinkActive="active">{{f.displayName}}</a> 
-          </li>
-        </ul>
       </div>
-    </div>
   </div>
 <main class="content">
 <router-outlet ></router-outlet>

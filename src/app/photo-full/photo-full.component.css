@@ -4,20 +4,18 @@
 .container{
     display: grid;
     grid-template-columns: 8vw 8vw 76vw 8vw;
-    grid-template-rows: 80vh;
+    grid-template-rows: 84vh;
    /* margin-left:0.5vw;
     margin-right:0.5vw;*/
     margin-bottom:1vw;
-    background-color: rosybrown;
 } 
 .container img{
     display: block;
     max-width: 100%;
-    max-height: 80vh;
+    max-height: 84vh;
     align-self: center;
     justify-self: center;
     cursor: url('../../assets/icons/grid_icon.svg'), auto;
-    background-color:navy;
 }
 .button-grid{
     display: grid;
@@ -26,7 +24,6 @@
     grid-template-rows: 82% 8% 10%;
     align-items: center;
     justify-items: center;
-    background-color: orchid;
 }
 .button-grid button{
     border:none;
@@ -40,12 +37,10 @@ mat-icon{
 }
 .arrow-l{
     width: 100%;
-    background-color: darkorange;
     cursor: url('../../assets/icons/arrow-l.svg'), auto;
 }
 .arrow-r{
     width: 100%;
-    background-color: blueviolet;
     cursor: url('../../assets/icons/arrow-r.svg'), auto;
 }
 img.loaded { 

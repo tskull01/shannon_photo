@@ -71,3 +71,6 @@ img.loaded {
     grid-template-columns: 45vw 10vw 45vw;
     grid-template-rows: 10vh;
   }
+  mat-progress-spinner{
+      opacity: 0.6;
+  }
