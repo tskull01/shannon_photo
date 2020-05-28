@@ -27,7 +27,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LandingElementsComponent } from './landing-elements/landing-elements.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { ScullyLibModule } from '@scullyio/ng-lib';
-
    
 @NgModule({
   declarations: [
