@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, ViewChildren, QueryList, ElementRef,  ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, QueryList, ElementRef,  ViewChild, ChangeDetectionStrategy, Renderer2 } from '@angular/core';
 import { Folder } from '../folder';
 import { PhotoDeliveryService } from '../photo-delivery.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ScrollDispatcher, CdkScrollable } from '@angular/cdk/scrolling';
-import { TweenLite} from 'gsap'; 
+import { TweenLite, Power0} from 'gsap'; 
+import { FolderBuilderService } from '../folder-builder.service';
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
@@ -13,27 +14,26 @@ import { TweenLite} from 'gsap';
 export class LandingComponent implements OnInit {
 selectionMade:boolean = false;
 mobile:boolean;
-folderDisplays:string[] = []; 
+folderDisplays:any[] = []; 
 @ViewChildren('folders')foldersDom:QueryList<ElementRef>
 @ViewChild(CdkScrollable)container:CdkScrollable; 
 @Input('folders')folders:Folder[]; 
+folderPromise:Promise<any>;  
 photoTransform:string;
 folderElements: Element[] = [];
 folderLimit:number; 
 folderTween:TweenLite;
   constructor(private photoDelivery:PhotoDeliveryService, private router:Router, private route:ActivatedRoute,
-    private scroller:ScrollDispatcher) {}
+    private scroller:ScrollDispatcher, private renderer: Renderer2, private folderService:FolderBuilderService) {}
 
   ngOnInit(): void {
     this.router.navigate([`./`], { relativeTo: this.route });
     this.photoTransform = this.setPhotoTransform(); 
     window.screen.width < 450 ? this.mobile = true : this.mobile = false; 
-   this.folderDisplays.length < 1 ? this.setPaths() : console.log('paths set');
-   this.setPaths();
-   this.folderLimit = this.folders.length;
+    this.setPaths(); 
+    this.folderLimit = this.folders.length;
   }
 ngAfterViewChecked(): void {
-
   this.folderElements = this.foldersDom.map((folder) => folder.nativeElement)
  //If scrollX equal to last image before dummy image right edge set scrollLeft on the container to 0 otherwise add to scroll left;
  this.scroller.scrolled().subscribe((scroll) => {
@@ -76,19 +76,18 @@ selectFolder(folder){
     }
   } 
   setPaths(){
-    console.log(this.folders)
+    //Doing for loop twice to create a second set of images for scroll effect
+    for(let i = 0; i < 2; i++){
       for(let f of this.folders){
         if(window.screen.width < 500){
-          this.folderDisplays.push(`../../assets/images/${f.name}/${f.name}(${f.displayPhoto}).jpg${this.photoTransform}`)
+          this.folderDisplays.push({name: f.displayName, path: `../../assets/images/${f.name}/${f.name}(${f.displayPhoto}).jpg${this.photoTransform}`})
         } else if(window.screen.width < 1000 && window.screen.width > 501){
-          this.folderDisplays.push(`../../assets/images/${f.name}/${f.name}(${f.displayPhoto}).jpg${this.photoTransform}`)
-        } else if(window.screen.width > 1000){
-          this.folderDisplays.push(`../../assets/images/${f.name}/${f.name}(${f.displayPhoto}).jpg${this.photoTransform}`)
+          this.folderDisplays.push({name: f.displayName, path: `../../assets/images/${f.name}/${f.name}(${f.displayPhoto}).jpg${this.photoTransform}`})
+        } else{
+          this.folderDisplays.push({name: f.displayName, path: `../../assets/images/${f.name}/${f.name}(${f.displayPhoto}).jpg${this.photoTransform}`})
         }
       }
-  }
-  onScroll(){
-    console.log('scrolling')
+    }
   }
 scrollHorizontally(e) {
     var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
@@ -99,9 +98,17 @@ scrollHorizontally(e) {
   }
   scrollHandle(e:WheelEvent){
     var delta = Math.max(-1, Math.min(1, (e.deltaY || -e.detail)));
-    var scrollSpeed = 60; // Janky jank <<<<<<<<<<<<<<
+    var scrollSpeed = 60;
     let containerRef = this.container.getElementRef();
     containerRef.nativeElement.scrollLeft -= (delta * scrollSpeed);
+  }
+  fadeIn(i){
+    if(i === this.folderDisplays.length - 1){
+      for(let element of this.folderElements){
+        this.renderer.removeClass(element, 'hide');
+        TweenLite.fromTo(element, 1,{opacity:0},{opacity:0.95, ease: Power0.easeIn}). play();
+      }
+    }
   }
 }
 

@@ -26,7 +26,7 @@ export class ConsoleComponent implements OnInit {
 
   createFolder(folderName){
    let newFolder = new Folder(this.getNextId(),this.formatFolderName(folderName),'',folderName,'1')
-   this.folderService.addNewFolder(newFolder); 
+  
   }
 
   getNextId(){

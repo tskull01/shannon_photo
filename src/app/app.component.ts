@@ -17,14 +17,12 @@ export class AppComponent implements OnInit {
 constructor(private folderService:FolderBuilderService){}
   ngOnInit(){
   this.loading = true;
-  this.getFolders();
+  this.waitForFolders(); 
   }
  async getFolders(){
-    this.folders = await this.folderService.getFolders();
-    console.log('folders are here')
-    console.log(this.folders);
-    if(this.folders){
-    this.loading = false;  
-    }
+    this.folders =<Folder[]> await this.folderService.returnAllFolders();
+  }
+ waitForFolders(){
+this.getFolders().then(() => this.loading = false);
   }
 }

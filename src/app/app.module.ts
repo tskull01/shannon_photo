@@ -26,9 +26,8 @@ import { LandingComponent } from './landing/landing.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LandingElementsComponent } from './landing-elements/landing-elements.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import { ScullyLibModule } from '@scullyio/ng-lib';
 
-
-enableProdMode();
    
 @NgModule({
   declarations: [
@@ -58,7 +57,8 @@ enableProdMode();
    MatInputModule,
    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
    MatProgressSpinnerModule,
-   ScrollingModule
+   ScrollingModule,
+   ScullyLibModule
   ],
   providers: [],
   bootstrap: [AppComponent]

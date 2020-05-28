@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "scully": "scully",
+    "scully:serve": "scully serve"
   },
   "private": true,
   "dependencies": {
@@ -22,11 +24,15 @@
     "@angular/platform-browser-dynamic": "~9.1.4",
     "@angular/router": "~9.1.4",
     "@angular/service-worker": "^9.1.2",
+    "@scullyio/init": "0.0.28",
+    "@scullyio/ng-lib": "latest",
+    "@scullyio/scully": "latest",
     "@types/gsap": "^1.20.2",
     "core-js": "^3.6.5",
     "faunadb": "^2.14.0",
     "gsap": "^3.2.6",
     "imports-loader": "^0.8.0",
+    "netlify-cms": "^2.10.49",
     "ngx-infinite-scroll": "^9.0.0",
     "ngx-swiper-wrapper": "^9.0.1",
     "rxjs": "~6.5.5",

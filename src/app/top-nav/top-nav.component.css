@@ -79,6 +79,8 @@
 width: 100%;
 justify-self: center;
 align-self: center;
+font-weight: 500;
+
 }
 .header h3{
     margin: 0;
