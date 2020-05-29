@@ -21,6 +21,7 @@ constructor(private folderService:FolderBuilderService){}
   }
  async getFolders(){
     this.folders =<Folder[]> await this.folderService.returnAllFolders();
+    console.log(this.folders);
   }
  waitForFolders(){
 this.getFolders().then(() => this.loading = false);

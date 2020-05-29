@@ -1,0 +1,41 @@
+.container{
+    display: grid; 
+    grid-template-rows: 10vh 15vh 25vh 20vh 25vh;
+    width: 100vw;
+}
+.bio-img{
+    display: flex;
+    height: 100%;
+    justify-content: flex-end;
+}
+.bio-img img{
+width: 600px; 
+}
+.desc{
+    height: 100%;
+    display: flex;
+    background-color: lightgray;
+    text-align: left;
+
+}
+.desc h5{
+    padding: 5vw;
+}
+.worked{
+    height: 100%;
+    columns: 300px 4;
+    -moz-columns: 300px 4;
+}
+.company-sec{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.red-bull{
+    height: 100%;
+    grid-template-columns: auto 40vw auto;
+}
+.redbull-logo{
+width: 100px; 
+align-self: center;
+}
