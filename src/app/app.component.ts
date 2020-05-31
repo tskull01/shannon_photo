@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FolderBuilderService } from './folder-builder.service';
 import { Folder } from './folder';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -13,17 +15,24 @@ export class AppComponent implements OnInit {
   title = 'ShannonPhoto';
   incoming:any;
   folders:Folder[] = [];
+  subcriber: Subscription;
 
-constructor(private folderService:FolderBuilderService){}
+constructor(private folderService:FolderBuilderService, private router:Router){}
   ngOnInit(){
+  this.router.navigate([''])
   this.loading = true;
-  this.waitForFolders(); 
-  }
- async getFolders(){
-    this.folders =<Folder[]> await this.folderService.returnAllFolders();
-    console.log(this.folders);
-  }
- waitForFolders(){
-this.getFolders().then(() => this.loading = false);
-  }
+  this.subcriber = this.folderService.folderSubject.subscribe((folders) => {
+    if(folders.length > 1){
+      console.log('inside if');
+      console.log(folders)
+    this.folders = folders; 
+    this.loading = false; 
+    this.subcriber.unsubscribe(); 
+    console.log(this.loading)
+    } else{
+      this.folderService.folders(); 
+      console.log('inside else')
+    }
+  })
+}
 }

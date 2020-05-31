@@ -15,7 +15,7 @@ export class ConsoleComponent implements OnInit {
  addingFolder:boolean;
  folderView:boolean; 
   constructor(private folderService: FolderBuilderService) {
-  this.folderService.returnAllFolders().then(
+  this.folderService.folderSubject.subscribe(
     (folders) => this.folders = folders
   )
    }

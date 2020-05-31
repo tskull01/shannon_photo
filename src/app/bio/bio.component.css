@@ -1,41 +1,149 @@
 .container{
     display: grid; 
-    grid-template-rows: 10vh 15vh 25vh 20vh 25vh;
-    width: 100vw;
+    grid-template-rows:auto 30vh 40vh 30vh;
+    grid-template-columns: 100vw;
 }
 .bio-img{
-    display: flex;
-    height: 100%;
-    justify-content: flex-end;
+    display: grid;
+    grid-template-columns: 400px auto;
+    grid-template-rows: 100%;
 }
 .bio-img img{
-width: 600px; 
+    max-width: 100%;
 }
+
 .desc{
     height: 100%;
     display: flex;
-    background-color: lightgray;
     text-align: left;
-
+    
+    margin-top: 4vh;
+    margin-left: 15vw;
+    margin-right: 15vw;
+    border-bottom:1px solid lightgray;
 }
-.desc h5{
-    padding: 5vw;
+.desc h4{
+    padding: 2vw;
+    margin-bottom: 0;
+    box-sizing: border-box;
 }
 .worked{
-    height: 100%;
-    columns: 300px 4;
-    -moz-columns: 300px 4;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    border-bottom:1px solid lightgray;
+}
+.worked img{
+    align-self: center;
+    justify-self: center;
+    width: 100%;
+    max-width: 200px;
+    height: auto;
 }
 .company-sec{
-    height: 100%;
-    display: flex;
-    flex-direction: row;
+    display:grid;
+    grid-template-rows: 100%;
 }
 .red-bull{
     height: 100%;
-    grid-template-columns: auto 40vw auto;
+    display:grid;
+    grid-template-columns: auto 40vw 40vw;
+    margin-top: 5vh;
 }
 .redbull-logo{
-width: 100px; 
-align-self: center;
+width: 150px; 
+justify-self: center;
+}
+.redbull-img{
+    width:100%;
+    object-fit: contain;
+}
+.rising{
+    display:grid;
+    grid-template-rows: auto 35vh auto;
+}
+.rising img, .rising h2, .rising h3{
+    justify-self: center;
+}
+.rising-inner{
+    justify-self: center;
+    align-self: center;
+    text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+    .container{
+        display: grid; 
+        grid-template-rows:auto 30vh 40vh 30vh;
+        grid-template-columns: 100vw;
+    }
+    .bio-img{
+        display: grid;
+        grid-template-columns: 40vw auto;
+        grid-template-rows: 100%;
+    }
+    .bio-img img{
+        max-width: 100%;
+    }
+    .desc{
+        height: 100%;
+        display: flex;
+        text-align: center;
+        margin-top: 4vh;
+        margin-left: 5vw;
+        margin-right: 5vw;
+        border-bottom:1px solid lightgray;
+    }
+    .desc h4{
+        padding: 2vw;
+        margin-bottom: 0;
+        box-sizing: border-box;
+    }
+    .worked{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr; 
+        align-items: center;
+        justify-items: center;
+        border-bottom:1px solid lightgray;
+    }
+    .worked img{
+        align-self: center;
+        justify-self: center;
+        width: 100%;
+        max-width: 200px;
+        height: auto;
+    }
+    .company-sec{
+        display:grid;
+        grid-template-rows: 100%;
+    }
+    .red-bull{
+        height: 100%;
+        display:grid;
+        grid-template-columns: auto 40vw 40vw;
+        margin-top: 5vh;
+    }
+    .redbull-logo{
+    width: 150px; 
+    justify-self: center;
+    }
+    .redbull-img{
+        width:100%;
+        object-fit: contain;
+    }
+    .rising{
+        display:grid;
+        grid-template-rows: auto 35vh auto;
+    }
+    .rising img, .rising h2, .rising h3{
+        justify-self: center;
+    }
+    .rising-inner{
+        justify-self: center;
+        align-self: center;
+        text-align: center;
+    }
+    
 }

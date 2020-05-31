@@ -1,27 +1,33 @@
 <div class="container">
-     <div class="name">
-        <h3>Shannon Schultz</h3>
-     </div>
      <div class="bio-img">
+        <div></div>
         <img src="../../assets/extras/bio.jpg" alt="">
      </div>
      <div class="desc">
-        <h5>Shannon is an artist based in Ann Arbor, Michigan. 
+        <h4 >Shannon is an artist based in Ann Arbor, Michigan. 
            She has a Bachelor of Fine Arts Degree with a major in Photography from the College for Creative Studies. 
            Currently she is working as the Photo Editor for Rivian Automotive and is always looking for new photo and video projects. 
            She loves to focus in portraiture of all kinds, especially action photography and fine art portraiture. 
-           Sports have always been a passion of hers and she's always finding new inspiration through athletes of all backgrounds. She loves that action photography not only exposes physical prowess, but it has the ability to express incredible human narratives and beauty. </h5>
+           Sports have always been a passion of hers and she's always finding new inspiration through athletes of all backgrounds. She loves that action photography not only exposes physical prowess, but it has the ability to express incredible human narratives and beauty. </h4>
      </div>
      <div class="company-sec">
-         <h4>Companies Shannon has collaberated with</h4>
-        <div *ngFor="let obs of observer | async" class="worked">
-            <img src={{obs}} alt="company logos">
+        <div class="worked">
+        <div *ngFor="let logo of observer | async" >
+            <img #companies src={{logo}} alt="company logos">
+        </div>
         </div>
      </div>
      <div class="red-bull">
-        <h5>Red Bull</h5>
-        <h5>Rising Talent Winner 2019</h5>
+        <div></div>
+        <div class="rising">
+           <div></div>
+           <div class="rising-inner">
+        <h2>Red Bull</h2>
+        <h2>Rising Talent Winner 2019</h2>
         <img class="redbull-logo" src="../../assets/extras/redbull_photo.jpg" alt="">
-        <img src="../../assets/extras/redbull_winning.jpg" alt="Rising Talent">
-     </div>
+        </div>
+        <div></div>
+      </div>
+      <div><img class="redbull-img"src="../../assets/extras/redbull_winning.jpg" alt="Rising Talent"></div>
+   </div>
 </div>

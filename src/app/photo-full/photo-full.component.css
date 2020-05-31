@@ -3,7 +3,7 @@
 }
 .container{
     display: grid;
-    grid-template-columns: 8vw 8vw 76vw 8vw;
+    grid-template-columns: 10vw 8vw 74vw 8vw;
     grid-template-rows: 84vh;
    /* margin-left:0.5vw;
     margin-right:0.5vw;*/

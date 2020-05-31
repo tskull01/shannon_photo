@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MobileDisplayComponent } from '../mobile-display/mobile-display.component';
+import { FolderBuilderService } from '../folder-builder.service';
+import { Folder } from '../folder';
+import { PhotoDeliveryService } from '../photo-delivery.service';
 
 @Component({
   selector: 'app-mobile-nav',
@@ -7,40 +10,19 @@ import { MobileDisplayComponent } from '../mobile-display/mobile-display.compone
   styleUrls: ['./mobile-nav.component.css']
 })
 export class MobileNavComponent  {
-photography:boolean = false; 
-selection:number = 1;
-filter:string = 'action';
+folders:Folder[]; 
 @ViewChild('display')displayComponent:MobileDisplayComponent; 
-  constructor() { }
+  constructor(private folderService:FolderBuilderService, private photoDelivery:PhotoDeliveryService) { }
 
-setSelection(num:number){
-  if(num === 1){
-    this.setPhotography(true); 
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    console.log('mobile nav init')
+    this.folderService.folderSubject.subscribe((folders) => {
+      this.folders = folders;
+    })
   }
-  this.selection = num; 
+setSelection(folder){
+  this.photoDelivery.setFolder(folder) 
 }
-
-setFilter(num: number){
-    console.log(this.filter);
-    switch(num){
-      case 1:
-      this.filter = 'action';
-      break;
-      case 2 :
-      this.filter = 'combat';
-      break;
-      case 3:
-      this.filter = 'environment';
-      break;
-      case 4:
-      this.filter = 'product';
-      break;
-      case 5:
-      this.filter = 'personal';
-      break;
-    }
-}
-setPhotography(bool:boolean){
-  this.photography = bool;
-  }
 }

@@ -2,6 +2,7 @@ import { Component, ViewChildren, ElementRef, Renderer2, QueryList,ViewChild, On
 import { PhotoDeliveryService } from '../photo-delivery.service';
 import { FolderBuilderService } from '../folder-builder.service';
 import { Folder } from '../folder';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-top-nav',
@@ -13,13 +14,18 @@ export class TopNavComponent implements OnInit {
 navFull:boolean = true; 
 photo: boolean = false;
 selection:number = 1;
-@Input('folders')folders:Folder[];  
+folders:Folder[] = [];  
 folderPromise:any;
 
-  constructor(private photoDelivery:PhotoDeliveryService, private folderService:FolderBuilderService) { }
+  constructor(private photoDelivery:PhotoDeliveryService, private folderService:FolderBuilderService, private router: Router) { }
 
   ngOnInit(){
-  console.log(this.folders);
+    window.screen.width < 500 ? this.router.navigate(['']) : console.log('not mobile'); 
+  this.folderService.folderSubject.subscribe((folders) => {
+    console.log(folders)
+    this.folders = folders; 
+    console.log(this.folders)
+  })
   }
   setFolder(folder){
     console.log(folder)
@@ -28,10 +34,4 @@ folderPromise:any;
   navSelection(num:number){
     this.selection = num; 
   }
- /* async getFolders(){
-    await this.folderService.returnAllFolders().then((folders) => {
-      console.log(folders);
-      return folders;
-    });
-  }*/
 }

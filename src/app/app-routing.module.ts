@@ -6,10 +6,11 @@ import { BioComponent } from './bio/bio.component';
 import { ContactComponent } from './contact/contact.component';
 import { ConsoleComponent } from './console/console.component';
 import { LandingComponent } from './landing/landing.component';
-
+import { MobileDisplayComponent } from './mobile-display/mobile-display.component';
 
 const routes: Routes = [
   { path: 'display', component: PhotoDisplayComponent },
+  { path: 'mobileDisplay', component: MobileDisplayComponent },
   { path: 'console', component: ConsoleComponent},
   { path: 'full', component: PhotoFullComponent },
   { path: 'editing', component: ConsoleComponent},

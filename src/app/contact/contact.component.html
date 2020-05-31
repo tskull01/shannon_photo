@@ -1,6 +1,6 @@
 <div class="contact-wrapper">
   
-    <h2>Contact Me</h2>
+    <h2>Contact</h2>
 <div [hidden]='submitted'>
 <form #form="ngForm" (ngSubmit)="onSubmit()" >
  <div class="form-grid">
@@ -46,6 +46,6 @@
       <div><h4>{{ model.subject }} {{model.message}}</h4></div>
     </div>
     <br>
-    <button mat-flat-button color="primary" (click)="submitted=false">Edit</button>
+    <button mat-flat-button color="primary" style="padding: 2vw;"(click)="submitted=false">Edit</button>
 </div>
 </div>
