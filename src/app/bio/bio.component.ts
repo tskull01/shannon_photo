@@ -42,7 +42,6 @@ export class BioComponent {
   }
   waitAndPush(){
     //Zero array
-    console.log(this.companyDom)
     this.companies = [];
     if(this.first){this.companies.push(...this.firstLogos); this.first = false} else{this.companies.push(...this.secondLogos); this.first = true}; 
     setTimeout(() =>{

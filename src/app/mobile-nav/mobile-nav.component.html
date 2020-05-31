@@ -5,7 +5,7 @@
   <div class="nav">
     <ul>
       <div *ngFor="let folder of folders">
-      <li (click)="setFilter(folder)">
+      <li (click)="setSelection(folder)">
         <a routerLink="/mobileDisplay" routerLinkActive="active">{{folder.displayName}}</a>
        </li>
       </div>
