@@ -84,7 +84,6 @@ selectFolder(folder){
     for(let f of this.folders){
       if(f.name === holder[4]){
         console.log('matched');
-        console.log(f)
         this.scrollSub.unsubscribe();
         this.sub.unsubscribe();
         this.folderSub.unsubscribe();
@@ -128,7 +127,7 @@ scrollHorizontally(e) {
     if(i === this.folderDisplays.length - 1){
       for(let element of this.folderElements){
         this.renderer.removeClass(element, 'hide');
-        TweenLite.fromTo(element, 1,{opacity:0},{opacity:0.95, ease: Power0.easeIn}). play();
+        TweenLite.fromTo(element, 1,{opacity:0},{opacity:0.95, ease: Power0.easeIn}).play();
       }
     }
   }
