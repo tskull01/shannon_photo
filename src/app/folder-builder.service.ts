@@ -15,10 +15,10 @@ export class FolderBuilderService {
   
   constructor(private http:HttpClient, private transferStateService:TransferStateService) { }
 async numberOfFolders(){
-  return this.transferStateService.useScullyTransferState('size', this.http.get('.netlify/functions/filesize')).toPromise();
+  return this.transferStateService.useScullyTransferState('size', this.http.get('.netlify/functions/filesize')).toPromise().catch((reason) => {console.log(reason)});
 }
 async folderCall(){
-  return this.transferStateService.useScullyTransferState('folders',this.http.get('.netlify/functions/getfolders')).toPromise();
+  return this.transferStateService.useScullyTransferState('folders',this.http.get('.netlify/functions/getfolders')).toPromise().catch((reason) => {console.log(reason)});
      }
 async folders(){
   console.log('calling folders')
