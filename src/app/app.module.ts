@@ -21,7 +21,6 @@ import {MatInputModule} from '@angular/material/input';
 import { ConsoleComponent } from './console/console.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import {enableProdMode} from '@angular/core';
 import { LandingComponent } from './landing/landing.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LandingElementsComponent } from './landing-elements/landing-elements.component';

@@ -6,7 +6,7 @@ import { ScrollDispatcher, CdkScrollable } from '@angular/cdk/scrolling';
 import { TweenLite, Power0} from 'gsap'; 
 import { FolderBuilderService } from '../folder-builder.service';
 import { Subscription } from 'rxjs';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
@@ -32,7 +32,7 @@ folderSub:Subscription;
     private scroller:ScrollDispatcher, private renderer: Renderer2, private folderService:FolderBuilderService) {}
 
   ngOnInit(): void {
-    this.router.navigate([`./`], { relativeTo: this.route });
+   // this.router.navigate([`./`], { relativeTo: this.route });
     this.photoTransform = this.setPhotoTransform(); 
     window.screen.width < 500 ? this.mobile = true : this.mobile = false; 
     window.screen.width < 500 ? console.log('mobile') : console.log('desktop'); 

@@ -19,6 +19,8 @@ export class AppComponent implements OnInit {
 
 constructor(private folderService:FolderBuilderService, private router:Router){}
   ngOnInit(){
+    //let response = this.folderService.listSiteAssets(); 
+    //console.log(response);
   this.router.navigate([''])
   this.loading = true;
   this.subcriber = this.folderService.folderSubject.subscribe((folders) => {

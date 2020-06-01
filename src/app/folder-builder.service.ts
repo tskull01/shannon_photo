@@ -32,4 +32,9 @@ async folders(){
       }
      this.folderSubject.next(this.allFolders);
   }
+  /*listSiteAssets(){
+    this.http.get('.netlify/git/github/').subscribe((response) => {
+      return response; 
+    })
+  }*/
 }

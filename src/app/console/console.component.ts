@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FolderBuilderService } from '../folder-builder.service';
 import { Folder } from '../folder';
-
+import {InitOptions,init,open } from 'netlify-identity-widget'; 
 
 @Component({
   selector: 'app-console',
@@ -9,33 +9,21 @@ import { Folder } from '../folder';
   styleUrls: ['./console.component.css']
 })
 export class ConsoleComponent implements OnInit {
-
+@ViewChild('container')container:ElementRef; 
   folders:Folder[];
   folder:any;
  addingFolder:boolean;
  folderView:boolean; 
+ netlifyId: InitOptions; 
   constructor(private folderService: FolderBuilderService) {
   this.folderService.folderSubject.subscribe(
     (folders) => this.folders = folders
   )
    }
 
-  ngOnInit(): void {
-   console.log(this.folder)
+  ngOnInit(): void { 
+  init(); 
+  open(); 
   }
 
-  createFolder(folderName){
-   let newFolder = new Folder(this.getNextId(),this.formatFolderName(folderName),'',folderName,'1')
-  
-  }
-
-  getNextId(){
-    return this.folders[this.folders.length].id + 1; 
-  }
-formatFolderName(name:string){
-return name.toLowerCase().trim();
-}
-addFolder(){
-
-}
 }
