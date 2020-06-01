@@ -1,5 +1,9 @@
 backend:
-  - name: git-gateway 
+  name: git-gateway
+  branch: master
+  identity_url: "https://keen-colden-282a59/.netlify/identity"
+  gateway_url: "https://keen-colden-282a59/.netlify/git"
+  squash_merges: true
 
 media_folder: "src/assets/images" # Media files will be stored here
 public_folder: "src/assets/images/uploads" # The src attribute for uploaded media
