@@ -1,5 +1,5 @@
 backend:
-name: git-gateway 
+  - name: git-gateway 
 
 media_folder: "src/assets/images" # Media files will be stored here
 public_folder: "src/assets/images/uploads" # The src attribute for uploaded media
