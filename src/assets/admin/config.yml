@@ -5,7 +5,7 @@ backend:
   gateway_url: "https://keen-colden-282a59.netlify.app/.netlify/git"
   squash_merges: true
 
-media_folder: "src/assets/images" # Media files will be stored here
+media_folder: "src/assets/images" #Media files will be stored here
 public_folder: "src/assets/images/uploads" # The src attribute for uploaded media
 
 collections:
