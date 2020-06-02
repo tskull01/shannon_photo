@@ -17,5 +17,5 @@ collections:
     fields: # The fields for each document, usually in front matter
       - {label: "Title", name: "title", widget: "string"}
       - {label: "displayPhoto", name: "displayPhoto", widget: "image"}
-      - {label: "Image", name: "image", widget: "image",    media_folder: '/{{media_folder}}/{{title}}',
+      - {label: "Image", name: "image", widget: "image", media_folder: '/{{media_folder}}/{{title}}',
           public_folder: '{{public_folder}}'}
