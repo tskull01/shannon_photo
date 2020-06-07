@@ -1,52 +1,62 @@
-import { Component, ViewChildren, QueryList, ElementRef, SimpleChanges} from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { TweenLite, Power0} from 'gsap'; 
+import { Component, ViewChildren, QueryList, ElementRef } from "@angular/core";
+import { BehaviorSubject, interval, Observable } from "rxjs";
+import { TweenLite } from "gsap";
+import { map } from "rxjs/operators";
+
 @Component({
-  selector: 'app-bio',
-  templateUrl: './bio.component.html',
-  styleUrls: ['./bio.component.css']
+  selector: "app-bio",
+  templateUrl: "./bio.component.html",
+  styleUrls: ["./bio.component.css"],
 })
 export class BioComponent {
-  @ViewChildren('companies')companyDom:QueryList<ElementRef>;
-  firstLogos:string[] = ['../../assets/extras/black_diamond.png','../../assets/extras/moosejaw.png',
-  '../../assets/extras/rivian.png','../../assets/extras/shefit.png'];
-  secondLogos:string[] = ['../../assets/extras/redbull.png','../../assets/extras/walmart.png',
-  '../../assets/extras/sony.png','../../assets/extras/sorel.png']
-  companies:string[] = this.firstLogos; 
-  observer:BehaviorSubject<string[]> = new BehaviorSubject(this.companies);
-  first: boolean = true;  
+  @ViewChildren("companies") companyDom: QueryList<ElementRef>;
+  firstLogos: string[] = [
+    "../../assets/extras/black_diamond.png",
+    "../../assets/extras/moosejaw.png",
+    "../../assets/extras/rivian.png",
+    "../../assets/extras/shefit.png",
+  ];
+  secondLogos: string[] = [
+    "../../assets/extras/redbull.png",
+    "../../assets/extras/walmart.png",
+    "../../assets/extras/sony.png",
+    "../../assets/extras/sorel.png",
+  ];
+  companies: string[] = [...this.firstLogos];
+  observer: BehaviorSubject<string[]> = new BehaviorSubject(this.companies);
+  first: boolean = false;
 
-  constructor() { }
+  constructor() {}
+  /* Function wait and push emits an obesrvable every 5 seconds to changeCompanies function
+ which checks current array and switches it to the other logos */
+  ngAfterViewInit(): void {
+    this.changeCompanies();
+    this.waitAndPush().subscribe(() =>
+      this.companyDom.forEach((element) => {
+        TweenLite.fromTo(
+          element.nativeElement,
+          1,
+          { opacity: 0 },
+          { opacity: 1 }
+        ).play();
+      })
+    );
+  }
 
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.waitAndPush();
+  changeCompanies() {
+    this.waitAndPush().subscribe((companyArray) => {
+      companyArray = [];
+      if (this.first) {
+        companyArray.push(...this.firstLogos);
+        this.first = false;
+      } else {
+        companyArray.push(...this.secondLogos);
+        this.first = true;
+      }
+      this.observer.next(companyArray);
+    });
   }
- ngAfterViewChecked(): void {
-   //Called after every check of the component's view. Applies to components only.
-   //Add 'implements AfterViewChecked' to the class.
-   console.log('opacity to 1')
-   this.companyDom.changes.subscribe((change) => {
-    this.companyDom.forEach((element) => {
-      TweenLite.to(element.nativeElement,1, {opacity: 1 }).play(); 
-    })
-  })
- }
-  changeCompanies(value:string[]){
-    this.companyDom.forEach((element) => {
-      TweenLite.to(element.nativeElement,1, {opacity: 0 }).play(); 
-    })
-    this.observer.next(value);
-    this.waitAndPush();
-  }
-  waitAndPush(){
-    //Zero array
-    this.companies = [];
-    if(this.first){this.companies.push(...this.firstLogos); this.first = false} else{this.companies.push(...this.secondLogos); this.first = true}; 
-    setTimeout(() =>{
-      console.log('inside set timeout')
-      this.changeCompanies(this.companies);
-    }, 5000)
+  waitAndPush(): Observable<string[]> {
+    return interval(5000).pipe(map((x) => this.companies));
   }
 }

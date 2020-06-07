@@ -1,4 +1,4 @@
-.container{ 
+.container {
   height: 100vh;
   display: flex;
   flex-wrap: nowrap;
@@ -8,29 +8,25 @@
   -webkit-overflow-scrolling: touch;
 }
 @media screen and (max-width: 500px) {
-  .item{
+  .item {
     height: 75vh;
   }
 }
-@media screen and (min-width: 501px) and (max-width:1000) {
-  .item{
-    height: 60vh;
-  }
-}
-@media screen and (min-width: 1001px) {
-  .item{
+@media screen and (min-width: 501px) {
+  .item {
     height: 75vh;
   }
 }
-.item{
-  padding:3vw;
+
+.item {
+  padding: 3vw;
   margin-top: -17vh;
   opacity: 0.95;
 }
-.item:hover{
-  opacity: 1; 
+.item:hover {
+  opacity: 1;
 }
-h5{
+h5 {
   text-align: center;
   margin-top: -17vh;
   font-weight: 500;
@@ -40,9 +36,14 @@ h5{
   z-index: 2;
   text-shadow: 0px 2px 4px rgba(0, 0, 0, 1);
 }
-.title{
+.title {
   position: relative;
 }
-.hide{
+.hide {
   opacity: 0;
+}
+.folder {
+  height: 100vh;
+  display: flex;
+  align-items: center;
 }

@@ -1,19 +1,31 @@
 <div *ngIf="!selectionMade">
-    <div cdkScrollable (wheel)="scrollHandle($event)" #container class="container">
-        <div #folders *ngFor="let f of folderDisplays;index as i; " class="folder" class="hide">
-         <img (load)="fadeIn(i)" (click)="selectFolder(f.path)" src={{f.path}} alt="Shannon Schultz Photo" class="item">
-          <div class="title">
-         <h5>{{f.name}}</h5>
-         </div>
+  <div (wheel)="scrollHandle($event)" #container class="container">
+    <div
+      #folderDom
+      *ngFor="let f of folderDisplays; index as i"
+      class="folder hide"
+    >
+      <div>
+        <img
+          (load)="fadeIn(i)"
+          (click)="selectFolder(f.path, $event)"
+          src="{{ f.path }}"
+          alt="Shannon Schultz Photo"
+          class="item"
+        />
+        <div class="title">
+          <h5>{{ f.name }}</h5>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
-
 <div *ngIf="selectionMade">
-    <div *ngIf="!mobile">
-        <app-top-nav #desktop [folders]="folders"></app-top-nav>
-    <div *ngIf="mobile">
-        <app-mobile-nav></app-mobile-nav>
-    </div>
+  <div *ngIf="!mobile">
+    <app-top-nav #desktop [folders]="folders"></app-top-nav>
+  </div>
+  <div *ngIf="mobile">
+    <app-mobile-nav></app-mobile-nav>
+  </div>
 </div>

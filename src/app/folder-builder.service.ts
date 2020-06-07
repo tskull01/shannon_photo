@@ -37,4 +37,10 @@ async folders(){
       return response; 
     })
   }*/
+
+  testCall(){
+    this.http.get('https://api.netlify.com/api/v1/sites/b17a518e-5364-4a04-8c5d-3f272721a2d9/assets').subscribe((result) =>{
+      console.log(result)
+    })
+  }
 }

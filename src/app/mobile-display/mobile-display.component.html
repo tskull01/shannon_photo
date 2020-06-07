@@ -1,5 +1,10 @@
 <div #container class="container">
-    <div class="display" *ngFor="let photo of photos">
-        <img src={{photo.path}} alt="">
-    </div>
+  <div class="display">
+    <img
+      (swipeLeft)="handleSwipeLeft($event)"
+      (swipeRight)="handleSwipeRight($event)"
+      src="{{ currentPhoto | async }}"
+      alt=""
+    />
+  </div>
 </div>

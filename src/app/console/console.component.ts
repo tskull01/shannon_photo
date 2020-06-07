@@ -1,29 +1,28 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FolderBuilderService } from '../folder-builder.service';
-import { Folder } from '../folder';
-import {InitOptions,init,open } from 'netlify-identity-widget'; 
-
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { FolderBuilderService } from "../folder-builder.service";
+import { Folder } from "../folder";
+import { InitOptions, init, open } from "netlify-identity-widget";
+import { CMS } from "netlify-cms";
 @Component({
-  selector: 'app-console',
-  templateUrl: './console.component.html',
-  styleUrls: ['./console.component.css']
+  selector: "app-console",
+  templateUrl: "./console.component.html",
+  styleUrls: ["./console.component.css"],
 })
 export class ConsoleComponent implements OnInit {
-@ViewChild('container')container:ElementRef; 
-  folders:Folder[];
-  folder:any;
- addingFolder:boolean;
- folderView:boolean; 
- netlifyId: InitOptions; 
+  @ViewChild("container") container: ElementRef;
+  folders: Folder[];
+  folder: any;
+  addingFolder: boolean;
+  folderView: boolean;
   constructor(private folderService: FolderBuilderService) {
-  this.folderService.folderSubject.subscribe(
-    (folders) => this.folders = folders
-  )
-   }
-
-  ngOnInit(): void { 
-  init(); 
-  open(); 
+    this.folderService.folderSubject.subscribe(
+      (folders) => (this.folders = folders)
+    );
   }
 
+  ngOnInit(): void {
+    this.folderService.testCall();
+    init();
+    open();
+  }
 }

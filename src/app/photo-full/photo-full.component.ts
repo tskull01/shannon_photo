@@ -1,38 +1,60 @@
-import { Component, OnInit,Output, EventEmitter, Renderer2, ViewChild, ElementRef } from '@angular/core';
-import { PhotoDeliveryService } from '../photo-delivery.service'; 
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Renderer2,
+  ViewChild,
+  ElementRef,
+} from "@angular/core";
+import { PhotoDeliveryService } from "../photo-delivery.service";
+import { MatIconRegistry } from "@angular/material/icon";
+import { DomSanitizer } from "@angular/platform-browser";
+import { fromEvent } from "rxjs";
 @Component({
-  selector: 'app-photo-full',
-  templateUrl: './photo-full.component.html',
-  styleUrls: ['./photo-full.component.css']
+  selector: "app-photo-full",
+  templateUrl: "./photo-full.component.html",
+  styleUrls: ["./photo-full.component.css"],
 })
 export class PhotoFullComponent implements OnInit {
   publicId: string;
-  @ViewChild('photo')photoRef:ElementRef;
+  @ViewChild("photo") photoRef: ElementRef;
+  @ViewChild("container") container: ElementRef;
   @Output() return = new EventEmitter();
-  filesizes:any; 
-  folderLimit:number; 
-  constructor(private photoService:PhotoDeliveryService, private renderer:Renderer2,
-    private maticon:MatIconRegistry, private sanitizer:DomSanitizer) { }
+  filesizes: any;
+  folderLimit: number;
+  constructor(
+    private photoService: PhotoDeliveryService,
+    private renderer: Renderer2,
+    private maticon: MatIconRegistry,
+    private sanitizer: DomSanitizer
+  ) {}
 
   ngOnInit(): void {
-    this.publicId = this.photoService.getPhoto(); 
-    this.maticon.addSvgIcon('grid',this.sanitizer.bypassSecurityTrustResourceUrl('../../assets/icons/grid_icon.svg'));
+    this.publicId = this.photoService.getPhoto();
+    this.maticon.addSvgIcon(
+      "grid",
+      this.sanitizer.bypassSecurityTrustResourceUrl(
+        "../../assets/icons/grid_icon.svg"
+      )
+    );
   }
-  increaseId(){
+
+  increaseId(e) {
+    e.preventDefault();
     this.photoService.increaseId();
-    this.publicId = this.photoService.getPhoto(); 
+    this.publicId = this.photoService.getPhoto();
   }
-  decreaseId(){
+  decreaseId(e) {
+    e.preventDefault();
     this.photoService.decreaseId();
-    this.publicId = this.photoService.getPhoto(); 
+    this.publicId = this.photoService.getPhoto();
   }
-  goBack(){
+  goBack() {
     this.return.emit();
   }
-  easeIn(){
-    this.renderer.removeClass(this.photoRef.nativeElement, 'hidden');
-    this.renderer.addClass(this.photoRef.nativeElement, 'loaded');
+  easeIn() {
+    this.renderer.removeClass(this.photoRef.nativeElement, "hidden");
+    this.renderer.addClass(this.photoRef.nativeElement, "loaded");
   }
 }
