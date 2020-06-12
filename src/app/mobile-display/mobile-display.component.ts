@@ -48,7 +48,7 @@ export class MobileDisplayComponent {
       this.photos.push(
         new Photo(
           i,
-          `../../assets/images/${this.currentAlbum.name}/${this.currentAlbum.name}(${i}).jpg`,
+          `../../assets/images/${this.currentAlbum.name}/${this.currentAlbum.name}(${i}).jpg?nf_resize=fit&w=${window.screen.width}`,
           this.currentAlbum.name,
           false
         )
