@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { FolderBuilderService } from "../folder-builder.service";
-import { Folder } from "../folder";
 import { InitOptions, init, open } from "netlify-identity-widget";
 import { CMS } from "netlify-cms";
 @Component({
@@ -10,18 +9,12 @@ import { CMS } from "netlify-cms";
 })
 export class ConsoleComponent implements OnInit {
   @ViewChild("container") container: ElementRef;
-  folders: Folder[];
-  folder: any;
-  addingFolder: boolean;
-  folderView: boolean;
-  constructor(private folderService: FolderBuilderService) {
-    this.folderService.folderSubject.subscribe(
-      (folders) => (this.folders = folders)
-    );
-  }
+
+  constructor(private folderService: FolderBuilderService) {}
 
   ngOnInit(): void {
-    this.folderService.testCall();
+    //
+    this.folderService.getAllMarkdown();
     init();
     open();
   }

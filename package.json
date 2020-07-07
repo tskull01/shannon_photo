@@ -26,7 +26,7 @@
     "@angular/service-worker": "^9.1.2",
     "@scullyio/init": "0.0.28",
     "@scullyio/ng-lib": "latest",
-    "@scullyio/scully": "latest",
+    "@scullyio/scully": "0.0.99",
     "@types/gsap": "^1.20.2",
     "@types/hammerjs": "^2.0.36",
     "@types/netlify-identity-widget": "^1.4.1",
@@ -49,9 +49,9 @@
     "@angular/cli": "~9.1.4",
     "@angular/compiler-cli": "~9.1.4",
     "@angular/language-service": "~9.1.4",
-    "@types/node": "^13.13.4",
     "@types/jasmine": "~3.5.10",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^13.13.4",
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.2",
@@ -62,7 +62,7 @@
     "karma-jasmine-html-reporter": "^1.5.3",
     "protractor": "~5.4.4",
     "ts-node": "~8.10.1",
-    "tslint": "~6.1.2",
-    "typescript": "~3.8.3"
+    "tslint": "^6.1.2",
+    "typescript": "^3.8.3"
   }
 }

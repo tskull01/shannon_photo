@@ -3,26 +3,25 @@
     <div class="header">
       <h3>SHANNON SCHULTZ PHOTO</h3>
     </div>
-    <div>
+    <div></div>
+    <div class="grid-container">
+      <ul>
+        <li (click)="setFolder(f)" *ngFor="let f of folders">
+          <a routerLink="/display" routerLinkActive="active">{{ f.title }}</a>
+        </li>
+        <li (click)="navSelection(2)">
+          <a routerLink="/bio" routerLinkActive="active">Bio</a>
+        </li>
+        <li (click)="navSelection(3)">
+          <a routerLink="/contact" routerLinkActive="active">Contact</a>
+        </li>
+        <li (click)="navSelection(3)">
+          <a routerLink="/console" routerLinkActive="active">Console</a>
+        </li>
+      </ul>
     </div>
-      <div class="grid-container">
-        <ul>
-          <li (click)=setFolder(f) *ngFor="let f of folders">
-            <a routerLink="/display" routerLinkActive="active">{{f.displayName}}</a> 
-            </li>
-          <li (click)="navSelection(2);">
-            <a routerLink="/bio" routerLinkActive="active">Bio</a> 
-          </li>
-          <li (click)="navSelection(3);">
-            <a routerLink="/contact" routerLinkActive="active">Contact</a>
-          </li>
-          <li (click)="navSelection(3);">
-            <a routerLink="/console" routerLinkActive="active">Console</a>
-          </li>
-        </ul>
-      </div>
   </div>
-<main class="content">
-<router-outlet ></router-outlet>
-</main>
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
 </div>

@@ -12,7 +12,7 @@ import { BehaviorSubject } from "rxjs";
 })
 export class MobileDisplayComponent {
   sizeOfAlbum: number;
-  folders: Folder[];
+  folder: Folder;
   currentAlbum: Folder;
   photos: Photo[] = [];
   currentPhoto: BehaviorSubject<any>;
@@ -26,15 +26,14 @@ export class MobileDisplayComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.folderService.folderSubject.subscribe((folders) => {
-      this.folders = folders;
+    this.folderService.folderSubject.subscribe((folder) => {
+      this.folder = folder;
     });
     this.photoDelivery.folderChange.subscribe((folder) => {
       console.log(folder);
       this.currentAlbum = folder;
       this.zeroEverythingOut();
-      this.formatOrder(this.currentAlbum.order);
-      this.sizeOfAlbum = this.folderOrder.length;
+      this.sizeOfAlbum = this.currentAlbum.imageSrcs.length;
       this.setCurrentPhotos();
       this.currentPhoto = new BehaviorSubject(this.photos[0].path);
     });
@@ -48,19 +47,14 @@ export class MobileDisplayComponent {
       this.photos.push(
         new Photo(
           i,
-          `../../assets/images/${this.currentAlbum.name}/${this.currentAlbum.name}(${i}).jpg?nf_resize=fit&w=${window.screen.width}`,
-          this.currentAlbum.name,
+          this.currentAlbum.imageSrcs[i],
+          this.currentAlbum.title,
           false
         )
       );
     }
   }
-  formatOrder(str: string) {
-    let inBetween = str.split(",");
-    inBetween.forEach((num) => {
-      this.folderOrder.push(+num);
-    });
-  }
+
   zeroEverythingOut() {
     this.folderOrder = [];
     this.photos = [];

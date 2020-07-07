@@ -14,34 +14,28 @@ export class AppComponent implements OnInit {
   loading: boolean;
   title = "ShannonPhoto";
   incoming: any;
-  folders: Folder[] = [];
-  subcriber: Subscription;
+  folder: Folder;
+  subscriber: Subscription;
 
   constructor(
     private folderService: FolderBuilderService,
     private router: Router
   ) {}
   ngOnInit() {
-    //let response = this.folderService.listSiteAssets();
-    //console.log(response);
+    //Gets folders from behavior subject in service and then passes them to the landing component
     this.router.navigate([""]);
     this.loading = true;
-    this.subcriber = this.folderService.folderSubject.subscribe((folders) => {
-      if (folders.length > 1) {
-        console.log("inside if");
-        console.log(folders);
-        this.folders = folders;
-        this.loading = false;
-        this.subcriber.unsubscribe();
-        console.log(this.loading);
-      } else {
-        this.folderService.folders();
-        console.log("inside else");
-      }
+    this.folderService.getAllMarkdown();
+    this.subscriber = this.folderService.folderSubject.subscribe((folder) => {
+      console.log(folder);
+      this.folder = folder;
+      this.loading = false;
+      console.log(this.loading);
     });
-    this.folderService.testCall();
-    this.folderService.testCall1();
-    this.folderService.testCall2();
-    this.folderService.testCall3();
+  }
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.subscriber.unsubscribe();
   }
 }

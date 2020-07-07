@@ -29,7 +29,6 @@ export class LandingComponent implements OnInit {
   folderDisplays: any[] = [];
   @ViewChildren("folderDom") foldersDom: QueryList<ElementRef>;
   @ViewChild("container") container: ElementRef<Element>;
-  @Input("folders") folders: Folder[];
   folderPromise: Promise<any>;
   photoTransform: string;
   folderElements: Element[] = [];
@@ -39,6 +38,8 @@ export class LandingComponent implements OnInit {
   notifier = new Subject<void>();
   scroller: Subscription;
   containerElem: Element;
+  folder: Folder;
+  @Input("folders") folders: Folder[];
   constructor(
     private photoDelivery: PhotoDeliveryService,
     private router: Router,
@@ -51,10 +52,11 @@ export class LandingComponent implements OnInit {
     this.photoTransform = this.setPhotoTransform();
     window.screen.width < 500 ? (this.mobile = true) : (this.mobile = false);
     window.screen.width < 500 ? console.log("mobile") : console.log("desktop");
-    this.folderSub = this.folderService.folderSubject.subscribe((folders) => {
-      this.folders = folders;
+    this.folderSub = this.folderService.folderSubject.subscribe((folder) => {
+      this.folder = folder;
     });
     this.setPaths();
+
     this.folderLimit = this.folders.length;
   }
   ngAfterViewInit(): void {
@@ -97,9 +99,9 @@ export class LandingComponent implements OnInit {
   selectFolder(folder, event) {
     console.log("folder Selected");
     let holder = folder.split("/");
-    this.mobile ? this.router.navigate([`./mobileDisplay`]) : console.log(" ");
+    this.mobile ? this.router.navigate([`./mobileDisplay`]) : null;
     for (let f of this.folders) {
-      if (f.name === holder[4]) {
+      if (f.title === holder[4]) {
         console.log("matched");
         for (let element of this.folderElements) {
           TweenLite.to(element, 1, { opacity: 0 }).play();
@@ -117,26 +119,26 @@ export class LandingComponent implements OnInit {
       for (let f of this.folders) {
         if (window.screen.width < 500) {
           this.folderDisplays.push({
-            name: f.displayName,
-            path: `../../assets/images/${f.name}/${f.name}(${f.displayPhoto}).jpg${this.photoTransform}`,
+            name: f.title,
+            path: `${f.displaySrc}${this.photoTransform}`,
           });
         } else if (window.screen.width < 1000 && window.screen.width > 501) {
           this.folderDisplays.push({
-            name: f.displayName,
-            path: `../../assets/images/${f.name}/${f.name}(${f.displayPhoto}).jpg${this.photoTransform}`,
+            name: f.title,
+            path: `${f.displaySrc}${this.photoTransform}`,
           });
         } else {
           this.folderDisplays.push({
-            name: f.displayName,
-            path: `../../assets/images/${f.name}/${f.name}(${f.displayPhoto}).jpg${this.photoTransform}`,
+            name: f.title,
+            path: `${f.displaySrc}${this.photoTransform}`,
           });
         }
       }
     }
   }
   scrollHandle(e: WheelEvent) {
-    var delta = Math.max(-1, Math.min(1, e.deltaY || -e.detail));
-    var scrollSpeed = 30;
+    let delta = Math.max(-1, Math.min(1, e.deltaY || -e.detail));
+    let scrollSpeed = 30;
     let containerRef = <Element>this.container.nativeElement;
     containerRef.scrollLeft -= delta * scrollSpeed;
   }

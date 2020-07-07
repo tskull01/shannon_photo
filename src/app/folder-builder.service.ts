@@ -1,93 +1,94 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Folder } from "./folder";
+import { MarkdownFile } from "./markdownFile";
 import { TransferStateService } from "@scullyio/ng-lib";
 import { BehaviorSubject } from "rxjs";
+import { Folder } from "./folder";
+import { GitApiResponse } from "./gitApiResponse";
+import { HIGH_CONTRAST_MODE_ACTIVE_CSS_CLASS } from "@angular/cdk/a11y/high-contrast-mode/high-contrast-mode-detector";
 @Injectable({
   providedIn: "root",
 })
 export class FolderBuilderService {
-  holder: any;
-  allFolders: Folder[] = [];
-  folderNum: number;
-  folderSubject: BehaviorSubject<Folder[]> = new BehaviorSubject(
-    this.allFolders
+  markdownObjects: MarkdownFile[] = [];
+  textFiles: string[] = [];
+  numberOfFolders: number;
+  buildingFolders: Folder[] = [];
+  allFoldersSubject: BehaviorSubject<Folder[]> = new BehaviorSubject(
+    this.buildingFolders
   );
+  folderSubject: BehaviorSubject<Folder> = new BehaviorSubject(
+    this.buildingFolders[0]
+  );
+  //REGULAR EXPRESSIONS FOR TITLE DISPLAYPHOTO AND IMAGES
+  titleRegex: RegExp = new RegExp('(?<=")(.*?)(?=")');
+  /* tslint:disable */
+
+  displayRegex: RegExp = new RegExp("(?<=displayPhoto:\\s)(.*?)\\s"); // tslint:disable-line
+  /* tslint:enable */
+
+  imagesRegex: RegExp = new RegExp("(?<=image:\\s)(.*?)\\s");
 
   constructor(
     private http: HttpClient,
     private transferStateService: TransferStateService
   ) {}
-  async numberOfFolders() {
-    return this.transferStateService
-      .useScullyTransferState(
-        "size",
-        this.http.get(".netlify/functions/filesize")
-      )
-      .toPromise()
-      .catch((reason) => {
-        console.log(reason);
-      });
-  }
-  async folderCall() {
-    return this.transferStateService
-      .useScullyTransferState(
-        "folders",
-        this.http.get(".netlify/functions/getfolders")
-      )
-      .toPromise()
-      .catch((reason) => {
-        console.log(reason);
-      });
-  }
-  async folders() {
-    console.log("calling folders");
-    let num = <string[]>await this.numberOfFolders();
-    this.folderNum = num.length;
-    let data = await this.folderCall();
-    //Data comes back as data['data'][firstElement] or data['data'][0]
-    //properties are also numbered data['data'][0][firstProperty] or data['data'][0][0]
-    for (let i = 0; i < this.folderNum; i++) {
-      this.allFolders.push(
-        new Folder(
-          data["data"][i][0],
-          data["data"][i][1],
-          data["data"][i][2],
-          data["data"][i][3],
-          data["data"][i][4]
-        )
-      );
-    }
-    this.folderSubject.next(this.allFolders);
-  }
-  /*listSiteAssets(){
-    this.http.get('.netlify/git/github/').subscribe((response) => {
-      return response; 
-    })
-  }*/
 
-  testCall() {
-    this.http.get("/.netlify/git/github/contents/").subscribe((result) => {
-      console.log(result);
+  /* ACTUAL CODE UNDER HERE  */
+  translateToText(markdownObjects: MarkdownFile[]) {
+    console.log(markdownObjects);
+    markdownObjects.forEach((markdownFile) => {
+      this.http
+        .get(markdownFile.downloadUrl, { responseType: "text" })
+        .subscribe((result: string) => {
+          console.log(result);
+          this.parseText(result);
+        });
     });
   }
-  testCall1() {
-    this.http.get("/.netlify/git/github/git/").subscribe((result) => {
-      console.log(result);
-    });
+  parseText(result: string) {
+    //Adds the text files to the textFiles array
+
+    if (
+      this.titleRegex.test(result) &&
+      this.displayRegex.test(result) &&
+      this.imagesRegex.test(result)
+    ) {
+      console.log("inside if passed tests");
+      let title = this.titleRegex.exec(result)[0];
+      let displayPhoto = this.displayRegex.exec(result)[0];
+      console.log(displayPhoto);
+      let imagesText = this.imagesRegex.exec(result)[0].split(",");
+      console.log(imagesText);
+      this.buildingFolders.push(new Folder(title, displayPhoto, imagesText));
+      console.log(this.buildingFolders);
+      this.allFoldersSubject.next(this.buildingFolders);
+      this.folderSubject.subscribe((value) => {
+        console.log(value);
+      });
+    }
   }
-  testCall2() {
+  getAllMarkdown() {
+    //Get all of the markdown files from a folder
+    //take the download url from the git result
     this.http
       .get(
-        "https://api.github.com/repos/tskull01/shannon_photo/contents/src/assets/images/uploads/"
+        "https://api.github.com/repos/tskull01/shannon_photo/contents/src/assets/images/uploads"
       )
-      .subscribe((result) => {
+      .subscribe((result: GitApiResponse[]) => {
+        this.numberOfFolders = result.length;
         console.log(result);
+        result.forEach((result, i) => {
+          console.log(result);
+          this.markdownObjects.push(
+            new MarkdownFile(result.name, result.download_url)
+          );
+        });
+        this.translateToText(this.markdownObjects);
       });
   }
-  testCall3() {
-    this.http.get("/.netlify/git/github/contents/").subscribe((result) => {
-      console.log(result);
-    });
-  }
 }
+//helpful file paths
+//"https://api.github.com/repos/tskull01/shannon_photo/contents/src/assets/images/uploads/test.md"
+//"https://api.github.com/repos/tskull01/shannon_photo/contents/src/assets/images/uploads"
+//https://raw.githubusercontent.com/tskull01/shannon_photo/master/src/assets/images/uploads/test.md?ref=master

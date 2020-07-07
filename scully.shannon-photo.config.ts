@@ -1,8 +1,7 @@
-import { ScullyConfig } from '@scullyio/scully';
+import { ScullyConfig } from "@scullyio/scully";
 export const config: ScullyConfig = {
-  projectRoot: "./src",
+  projectRoot: "./",
   projectName: "shannon-photo",
-  outDir: './dist/static',
-  routes: {
-  }
+  outDir: "./dist/static",
+  routes: {},
 };
