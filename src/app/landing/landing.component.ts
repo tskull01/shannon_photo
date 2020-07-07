@@ -39,6 +39,7 @@ export class LandingComponent implements OnInit {
   scroller: Subscription;
   containerElem: Element;
   folder: Folder;
+  prevScroll: number = 0;
   @Input("folders") folders: Folder[];
   constructor(
     private photoDelivery: PhotoDeliveryService,
@@ -49,14 +50,16 @@ export class LandingComponent implements OnInit {
 
   ngOnInit(): void {
     // this.router.navigate([`./`], { relativeTo: this.route });
+    //Responsive image requests
     this.photoTransform = this.setPhotoTransform();
     window.screen.width < 500 ? (this.mobile = true) : (this.mobile = false);
     window.screen.width < 500 ? console.log("mobile") : console.log("desktop");
+    //Getting photo subcategories from markdown files
     this.folderSub = this.folderService.folderSubject.subscribe((folder) => {
       this.folder = folder;
     });
+    //Setting the display image for each subcategory
     this.setPaths();
-
     this.folderLimit = this.folders.length;
   }
   ngAfterViewInit(): void {
@@ -64,11 +67,13 @@ export class LandingComponent implements OnInit {
     //Add 'implements AfterViewInit' to the class.
     this.folderElements = this.foldersDom.map((folder) => folder.nativeElement);
     this.containerElem = this.container.nativeElement;
+    //Scroll event obs checks position of photos
     this.scroller = fromEvent<any>(this.container.nativeElement, "scroll")
       .pipe(
         throttleTime(30),
         takeUntil(this.notifier),
-        tap(() => this.checkPosition())
+        tap(() => this.checkPosition()),
+        tap(() => this.moveDisplays())
       )
       .subscribe((scroll) => {
         //console.log(scroll);
@@ -136,11 +141,23 @@ export class LandingComponent implements OnInit {
       }
     }
   }
-  scrollHandle(e: WheelEvent) {
+  /*scrollHandle(e: WheelEvent) {
     let delta = Math.max(-1, Math.min(1, e.deltaY || -e.detail));
     let scrollSpeed = 30;
     let containerRef = <Element>this.container.nativeElement;
     containerRef.scrollLeft -= delta * scrollSpeed;
+  }*/
+  moveDisplays() {
+    if (this.prevScroll < this.container.nativeElement.scrollLeft) {
+      this.folderElements.forEach((element) => {
+        TweenLite.to(element, 0.1, { xPercent: -1 });
+      });
+    } else {
+      this.folderElements.forEach((element) => {
+        TweenLite.to(element, 0.1, { xPercent: 1 });
+      });
+    }
+    this.prevScroll = this.container.nativeElement.scrollLeft;
   }
   fadeIn(i) {
     if (i === this.folderDisplays.length - 1) {

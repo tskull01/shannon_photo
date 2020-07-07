@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit } from "@angular/core";
+import { Component, ElementRef, ViewChild, OnInit, Input } from "@angular/core";
 import { PhotoDeliveryService } from "../photo-delivery.service";
 import { FolderBuilderService } from "../folder-builder.service";
 import { Folder } from "../folder";
@@ -16,7 +16,7 @@ export class TopNavComponent implements OnInit {
   selection: number = 1;
   folder: Folder;
   folderPromise: any;
-
+  @Input("folders") folders: Folder[];
   constructor(
     private photoDelivery: PhotoDeliveryService,
     private folderService: FolderBuilderService,
