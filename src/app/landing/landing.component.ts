@@ -14,7 +14,7 @@ import { PhotoDeliveryService } from "../photo-delivery.service";
 import { Router } from "@angular/router";
 import { TweenLite, Power0 } from "gsap";
 import { FolderBuilderService } from "../folder-builder.service";
-import { Subscription, Observable, fromEvent, Subject } from "rxjs";
+import { Subscription, fromEvent, Subject } from "rxjs";
 import { takeUntil, throttleTime, tap } from "rxjs/operators";
 
 @Component({

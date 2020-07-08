@@ -15,10 +15,12 @@ export class PhotoDeliveryService {
   url: string;
   baseUrl: string = "../assets/images/";
   folderMax: string[] = [];
-  constructor(private folderBuilder: FolderBuilderService) {
-    this.folderChange.subscribe((value) => {
+  constructor(private folderBuilder: FolderBuilderService) {}
+  getFolder() {
+    this.folderBuilder.folderSubject.subscribe((value) => {
+      console.log(value + "INSIDE PHOTO SERVICE");
       this.folder = value;
-      this.setAlbumPhotos();
+      value ? this.setAlbumPhotos() : null;
     });
   }
   setPhoto(photo: Photo) {

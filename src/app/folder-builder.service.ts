@@ -2,10 +2,9 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { MarkdownFile } from "./markdownFile";
 import { TransferStateService } from "@scullyio/ng-lib";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable, from } from "rxjs";
 import { Folder } from "./folder";
 import { GitApiResponse } from "./gitApiResponse";
-import { HIGH_CONTRAST_MODE_ACTIVE_CSS_CLASS } from "@angular/cdk/a11y/high-contrast-mode/high-contrast-mode-detector";
 @Injectable({
   providedIn: "root",
 })
@@ -14,6 +13,7 @@ export class FolderBuilderService {
   textFiles: string[] = [];
   numberOfFolders: number;
   buildingFolders: Folder[] = [];
+  waitForFolders: BehaviorSubject<boolean> = new BehaviorSubject(false);
   allFoldersSubject: BehaviorSubject<Folder[]> = new BehaviorSubject(
     this.buildingFolders
   );
@@ -21,13 +21,13 @@ export class FolderBuilderService {
     this.buildingFolders[0]
   );
   //REGULAR EXPRESSIONS FOR TITLE DISPLAYPHOTO AND IMAGES
-  titleRegex: RegExp = new RegExp('(?<=")(.*?)(?=")');
+  titleRegex: RegExp = new RegExp("(?<=title:\\s)(.*)");
   /* tslint:disable */
 
   displayRegex: RegExp = new RegExp("(?<=displayPhoto:\\s)(.*?)\\s"); // tslint:disable-line
   /* tslint:enable */
 
-  imagesRegex: RegExp = new RegExp("(?<=image:\\s)(.*?)\\s");
+  imagesRegex: RegExp = new RegExp("(?<=galleryImages:\\s)([\\s\\S]*)(?=---)");
 
   constructor(
     private http: HttpClient,
@@ -48,7 +48,6 @@ export class FolderBuilderService {
   }
   parseText(result: string) {
     //Adds the text files to the textFiles array
-
     if (
       this.titleRegex.test(result) &&
       this.displayRegex.test(result) &&
@@ -58,14 +57,13 @@ export class FolderBuilderService {
       let title = this.titleRegex.exec(result)[0];
       let displayPhoto = this.displayRegex.exec(result)[0];
       console.log(displayPhoto);
-      let imagesText = this.imagesRegex.exec(result)[0].split(",");
+      let imagesText = this.imagesRegex.exec(result)[0].trim().split("-");
       console.log(imagesText);
       this.buildingFolders.push(new Folder(title, displayPhoto, imagesText));
-      console.log(this.buildingFolders);
       this.allFoldersSubject.next(this.buildingFolders);
-      this.folderSubject.subscribe((value) => {
-        console.log(value);
-      });
+      if (this.buildingFolders.length === this.numberOfFolders) {
+        this.waitForFolders.next(true);
+      }
     }
   }
   getAllMarkdown() {
@@ -86,6 +84,7 @@ export class FolderBuilderService {
         });
         this.translateToText(this.markdownObjects);
       });
+    return this.waitForFolders;
   }
 }
 //helpful file paths

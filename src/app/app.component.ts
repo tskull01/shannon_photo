@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FolderBuilderService } from "./folder-builder.service";
 import { Folder } from "./folder";
 import { Router } from "@angular/router";
-import { Subscription } from "rxjs";
+import { Subscription, Observable, interval } from "rxjs";
+import { PhotoDeliveryService } from "./photo-delivery.service";
 
 @Component({
   selector: "app-root",
@@ -16,21 +17,30 @@ export class AppComponent implements OnInit {
   incoming: any;
   folder: Folder;
   subscriber: Subscription;
-
+  folders: Folder[];
+  retry: Observable<number>;
   constructor(
     private folderService: FolderBuilderService,
-    private router: Router
+    private router: Router,
+    private photoService: PhotoDeliveryService
   ) {}
   ngOnInit() {
     //Gets folders from behavior subject in service and then passes them to the landing component
     this.router.navigate([""]);
     this.loading = true;
-    this.folderService.getAllMarkdown();
-    this.subscriber = this.folderService.folderSubject.subscribe((folder) => {
-      console.log(folder);
-      this.folder = folder;
-      this.loading = false;
-      console.log(this.loading);
+    let waitForFolder = this.folderService.getAllMarkdown();
+    waitForFolder.subscribe((waiting) => {
+      console.log(waiting + "Behavior subject");
+      waiting
+        ? (this.subscriber = this.folderService.allFoldersSubject.subscribe(
+            (folders) => {
+              console.log("getting all folders");
+              this.folders = folders;
+              this.photoService.getFolder();
+              this.loading = false;
+            }
+          ))
+        : null;
     });
   }
   ngOnDestroy(): void {
