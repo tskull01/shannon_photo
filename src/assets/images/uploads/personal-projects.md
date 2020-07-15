@@ -11,9 +11,9 @@ galleryImages:
   - src/assets/images/uploads/2_lyra1.jpg
   - src/assets/images/uploads/3.jpg
   - src/assets/images/uploads/3_lyra6.jpg
-  - src/assets/images/uploads/4_sphere-apparatus.0411.jpg
+  - src/assets/images/uploads/4_sphere.jpg
   - src/assets/images/uploads/5.jpg
-  - src/assets/images/uploads/5_sphere-apparatus.0444.jpg
+  - src/assets/images/uploads/5_sphere.jpg
   - src/assets/images/uploads/6.jpg
   - src/assets/images/uploads/6_sphere_apparatus_0398.jpg
   - src/assets/images/uploads/7_contortion.jpg
@@ -21,17 +21,17 @@ galleryImages:
   - src/assets/images/uploads/9.jpg
   - src/assets/images/uploads/11.jpg
   - src/assets/images/uploads/12.jpg
-  - src/assets/images/uploads/12f7962e-65c5-4780-8dd8-ad03e142cabe.jpg
+  - src/assets/images/uploads/millions.jpg
   - src/assets/images/uploads/24.jpg
-  - src/assets/images/uploads/2017-07-22-20.41.49.jpg
-  - src/assets/images/uploads/2017-07-22-20.44.01.jpg
-  - src/assets/images/uploads/2017-07-22-20.46.15.jpg
+  - src/assets/images/uploads/beach.jpg
+  - src/assets/images/uploads/glasses.jpg
+  - src/assets/images/uploads/blue.jpg
   - src/assets/images/uploads/08090002.jpg
   - src/assets/images/uploads/08100020.jpg
   - src/assets/images/uploads/20080014.jpg
   - src/assets/images/uploads/20080016.jpg
   - src/assets/images/uploads/20080022.jpg
-  - src/assets/images/uploads/burns952200-r1-e006.jpg
+  - src/assets/images/uploads/burns.jpg
   - src/assets/images/uploads/chair.jpg
   - src/assets/images/uploads/img_3659.jpg
   - src/assets/images/uploads/stilts1.jpg

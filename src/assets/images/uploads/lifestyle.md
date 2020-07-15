@@ -15,16 +15,16 @@ galleryImages:
   - src/assets/images/uploads/_mg_0164.jpg
   - src/assets/images/uploads/_mg_3659.jpg
   - src/assets/images/uploads/_mg_4037.jpg
-  - src/assets/images/uploads/13_sonny_newmexico_909-copy.jpg
+  - src/assets/images/uploads/13_sonny_newmexico_909.jpg
   - src/assets/images/uploads/15__h3a1242.jpg
   - src/assets/images/uploads/19_79a2798.jpg
   - src/assets/images/uploads/20_79a1804.jpg
-  - src/assets/images/uploads/az_backpackinglookout_vista_divya_3444-1.jpg
+  - src/assets/images/uploads/az_backpacking.jpg
   - src/assets/images/uploads/az_insidetentcomposite_divya_0933.jpg
   - src/assets/images/uploads/az_lithicbackpack_lsdetail_3235.jpg
   - src/assets/images/uploads/az_tent_rainfly_divya_tristan_1374.jpg
   - src/assets/images/uploads/az_tristan_scrambling_mg_2700.jpg
-  - src/assets/images/uploads/c6663086-ef93-4a4e-9df4-59c6027fd52c.jpg
+  - src/assets/images/uploads/rocks.jpg
   - src/assets/images/uploads/hikeroute_az_composite_mg_2630.jpg
   - src/assets/images/uploads/ss_092719_redbullrisingtalent_us_3030.jpg
   - src/assets/images/uploads/u79a0117.jpg
