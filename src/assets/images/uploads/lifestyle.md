@@ -1,34 +1,34 @@
 ---
 title: Lifestyle
-displayPhoto: src/assets/images/uploads/_79a0676_after.jpg
+displayPhoto: assets/images/_79a0676_after.jpg
 galleryImages:
-  - src/assets/images/uploads/_79a0676_after.jpg
-  - src/assets/images/uploads/_79a0917.jpg
-  - src/assets/images/uploads/_79a1546.jpg
-  - src/assets/images/uploads/_79a2966.jpg
-  - src/assets/images/uploads/_79a3196.jpg
-  - src/assets/images/uploads/_79a4923.jpg
-  - src/assets/images/uploads/_79a5947.jpg
-  - src/assets/images/uploads/_79a6039.jpg
-  - src/assets/images/uploads/_79a9762.jpg
-  - src/assets/images/uploads/_mg_0043.jpg
-  - src/assets/images/uploads/_mg_0164.jpg
-  - src/assets/images/uploads/_mg_3659.jpg
-  - src/assets/images/uploads/_mg_4037.jpg
-  - src/assets/images/uploads/13_sonny_newmexico_909.jpg
-  - src/assets/images/uploads/15__h3a1242.jpg
-  - src/assets/images/uploads/19_79a2798.jpg
-  - src/assets/images/uploads/20_79a1804.jpg
-  - src/assets/images/uploads/az_backpacking.jpg
-  - src/assets/images/uploads/az_insidetentcomposite_divya_0933.jpg
-  - src/assets/images/uploads/az_lithicbackpack_lsdetail_3235.jpg
-  - src/assets/images/uploads/az_tent_rainfly_divya_tristan_1374.jpg
-  - src/assets/images/uploads/az_tristan_scrambling_mg_2700.jpg
-  - src/assets/images/uploads/rocks.jpg
-  - src/assets/images/uploads/hikeroute_az_composite_mg_2630.jpg
-  - src/assets/images/uploads/ss_092719_redbullrisingtalent_us_3030.jpg
-  - src/assets/images/uploads/u79a0117.jpg
-  - src/assets/images/uploads/u79a2481.jpg
-  - src/assets/images/uploads/u79a6249.jpg
-  - src/assets/images/uploads/u79a7576.jpg
+  - assets/images/_79a0676_after.jpg
+  - assets/images/_79a0917.jpg
+  - assets/images/_79a1546.jpg
+  - assets/images/_79a2966.jpg
+  - assets/images/_79a3196.jpg
+  - assets/images/_79a4923.jpg
+  - assets/images/_79a5947.jpg
+  - assets/images/_79a6039.jpg
+  - assets/images/_79a9762.jpg
+  - assets/images/_mg_0043.jpg
+  - assets/images/_mg_0164.jpg
+  - assets/images/_mg_3659.jpg
+  - assets/images/_mg_4037.jpg
+  - assets/images/13_sonny_newmexico_909.jpg
+  - assets/images/15__h3a1242.jpg
+  - assets/images/19_79a2798.jpg
+  - assets/images/20_79a1804.jpg
+  - assets/images/az_backpacking.jpg
+  - assets/images/az_insidetentcomposite_divya_0933.jpg
+  - assets/images/az_lithicbackpack_lsdetail_3235.jpg
+  - assets/images/az_tent_rainfly_divya_tristan_1374.jpg
+  - assets/images/az_tristan_scrambling_mg_2700.jpg
+  - assets/images/rocks.jpg
+  - assets/images/hikeroute_az_composite_mg_2630.jpg
+  - assets/images/ss_092719_redbullrisingtalent_us_3030.jpg
+  - assets/images/u79a0117.jpg
+  - assets/images/u79a2481.jpg
+  - assets/images/u79a6249.jpg
+  - assets/images/u79a7576.jpg
 ---
