@@ -73,7 +73,6 @@ export class LandingComponent implements OnInit {
       .pipe(
         throttleTime(50),
         takeUntil(this.notifier),
-        tap((e) => this.logEvent(e)),
         tap((e) => this.checkPosition(e)),
         tap((e) => this.moveDisplays(e))
       )
@@ -93,9 +92,6 @@ export class LandingComponent implements OnInit {
     } else if (this.containerElem.scrollLeft === 0 && e.deltaY < -20) {
       this.containerElem.scrollLeft = this.containerElem.scrollWidth / 2;
     }
-  }
-  logEvent(e) {
-    console.log(e.deltaY);
   }
   setPhotoTransform() {
     let transform = "";
@@ -150,9 +146,9 @@ export class LandingComponent implements OnInit {
   moveDisplays(e) {
     e.preventDefault();
     if (e.deltaY > 0) {
-      this.containerElem.scrollLeft += 30;
+      this.containerElem.scrollLeft += 25;
     } else {
-      this.containerElem.scrollLeft -= 30;
+      this.containerElem.scrollLeft -= 25;
     }
   }
   fadeIn(i) {

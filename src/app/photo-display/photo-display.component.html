@@ -1,16 +1,25 @@
 <div class="masonry">
-  <div class="item" *ngFor="let obs of observer | async;index as i;">
-    <img #items class="hidden" (click)="displayDialog(obs)" (contextmenu)="disableRightClick(e)" (load)="showImage(i)"
-     src={{obs}} routerLink="../full" />
+  <div class="item" *ngFor="let obs of observer | async; index as i">
+    <img
+      #items
+      class="hidden"
+      (click)="displayDialog(obs, i)"
+      (contextmenu)="disableRightClick(e)"
+      (load)="showImage(i)"
+      src="{{ obs }}"
+      routerLink="../full"
+    />
   </div>
 </div>
 
 <div class="moveSpinner">
   <div></div>
-  <mat-progress-spinner *ngIf="spinner"
+  <mat-progress-spinner
+    *ngIf="spinner"
     [diameter]="diameter"
     [mode]="mode"
-    [value]="value">
+    [value]="value"
+  >
   </mat-progress-spinner>
   <div></div>
 </div>

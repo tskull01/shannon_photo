@@ -15,6 +15,7 @@ import { Folder } from "../folder";
 import { Subscription, Observable, BehaviorSubject } from "rxjs";
 import { ProgressSpinnerMode } from "@angular/material/progress-spinner";
 import { FolderBuilderService } from "../folder-builder.service";
+import { createOfflineCompileUrlResolver } from "@angular/compiler";
 @Component({
   selector: "app-photo-display",
   templateUrl: "./photo-display.component.html",
@@ -71,17 +72,11 @@ export class PhotoDisplayComponent {
   disableRightClick(e) {
     return false;
   }
-  displayDialog(obs) {
+  displayDialog(photo, i) {
     //Changing content view to the full photo
     //Using regex to match parentheses and pass image to full view
-    const regExp = /\(([^)]+)\)/;
-    let matches = regExp.exec(obs);
-    this.selectedPhoto = new Photo(
-      Number.parseInt(matches[1]),
-      obs,
-      this.folder.title,
-      true
-    );
+    console.log(photo);
+    this.selectedPhoto = new Photo(i, photo, this.folder.title, true);
     this.photoService.setPhoto(this.selectedPhoto);
     this.setSelection.emit();
   }

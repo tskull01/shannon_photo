@@ -27,9 +27,6 @@ export class MobileDisplayComponent {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.folderService.folderSubject.subscribe((folder) => {
-      this.folder = folder;
-    });
-    this.photoDelivery.folderChange.subscribe((folder) => {
       console.log(folder);
       this.currentAlbum = folder;
       this.zeroEverythingOut();
