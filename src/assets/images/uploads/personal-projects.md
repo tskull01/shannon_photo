@@ -28,6 +28,9 @@ galleryImages:
   - assets/images/blue.jpg
   - assets/images/08090002.jpg
   - assets/images/08100020.jpg
+  - src/assets/images/uploads/img_4759.jpg
+  - src/assets/images/uploads/img_4783.jpg
+  - src/assets/images/uploads/img_4798.jpg
   - assets/images/20080014.jpg
   - assets/images/20080016.jpg
   - assets/images/20080022.jpg
