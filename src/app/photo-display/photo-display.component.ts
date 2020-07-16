@@ -12,7 +12,7 @@ import {
 import { Photo } from "src/app/photo";
 import { PhotoDeliveryService } from "../photo-delivery.service";
 import { Folder } from "../folder";
-import { Subscription, Observable, BehaviorSubject } from "rxjs";
+import { Subscription, BehaviorSubject } from "rxjs";
 import { ProgressSpinnerMode } from "@angular/material/progress-spinner";
 import { FolderBuilderService } from "../folder-builder.service";
 @Component({
@@ -30,7 +30,8 @@ export class PhotoDisplayComponent {
   spinner: boolean = true;
   folderLimit: number = 0;
   selectedPhoto: Photo;
-  sub: Subscription;
+  photoSub: Subscription;
+  folderSub: Subscription;
   renderCount: number = 0;
   mode: ProgressSpinnerMode = "indeterminate";
   value: number;
@@ -42,11 +43,11 @@ export class PhotoDisplayComponent {
     private renderer: Renderer2,
     private folderService: FolderBuilderService
   ) {
-    this.photoService.albumPhotos.subscribe((photos) => {
+    this.photoSub = this.photoService.albumPhotos.subscribe((photos) => {
       this.zeroOutArray();
       this.setCurrentPhotos(photos);
     });
-    this.folderService.folderSubject.subscribe((folder) => {
+    this.folderSub = this.folderService.folderSubject.subscribe((folder) => {
       this.folder = new Folder(
         folder.title,
         folder.displaySrc,
@@ -54,16 +55,11 @@ export class PhotoDisplayComponent {
       );
     });
   }
-  ngAfterViewInit() {
-    this.items.changes.subscribe((t) => {
-      this.ngForRendred();
-    });
-    this.observer.subscribe((photos) => {
-      console.log(photos);
-    });
-  }
-  ngForRendred() {
-    console.log("rendered");
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.photoSub.unsubscribe();
+    this.folderSub.unsubscribe();
   }
   setCurrentPhotos(photos) {
     //Set all of the images
@@ -72,6 +68,7 @@ export class PhotoDisplayComponent {
       (photo) =>
         photo ? srcArray.push(`${photo.path}?nf_resize=fit&w=600`) : null
       //prod path`${photo.path}?nf_resize=fit&w=600`
+      //dev path ${photo.path}
     );
     this.folderLimit = srcArray.length;
     this.observer.next(srcArray);
@@ -81,8 +78,6 @@ export class PhotoDisplayComponent {
   }
   displayDialog(photo, i) {
     //Changing content view to the full photo
-    //Using regex to match parentheses and pass image to full view
-    console.log(photo);
     this.selectedPhoto = new Photo(i, photo, this.folder.title, true);
     this.photoService.setPhoto(this.selectedPhoto);
     this.setSelection.emit();

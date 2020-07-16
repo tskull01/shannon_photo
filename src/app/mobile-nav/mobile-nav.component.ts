@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, Input } from "@angular/core";
+import { Component, ViewChild, Input } from "@angular/core";
 import { MobileDisplayComponent } from "../mobile-display/mobile-display.component";
 import { FolderBuilderService } from "../folder-builder.service";
 import { Folder } from "../folder";
-import { PhotoDeliveryService } from "../photo-delivery.service";
 
 @Component({
   selector: "app-mobile-nav",
@@ -13,10 +12,7 @@ export class MobileNavComponent {
   folder: Folder;
   @ViewChild("display") displayComponent: MobileDisplayComponent;
   @Input("folders") folders: Folder[];
-  constructor(
-    private folderService: FolderBuilderService,
-    private photoDelivery: PhotoDeliveryService
-  ) {}
+  constructor(private folderService: FolderBuilderService) {}
 
   ngOnInit(): void {
     console.log("mobile nav init");
@@ -25,7 +21,6 @@ export class MobileNavComponent {
     });
   }
   setFolder(folder) {
-    console.log(folder.title);
     this.folderService.setFolderSubject(folder);
   }
 }

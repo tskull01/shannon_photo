@@ -1,5 +1,5 @@
 import { Component, ViewChildren, QueryList, ElementRef } from "@angular/core";
-import { BehaviorSubject, interval, Observable } from "rxjs";
+import { BehaviorSubject, interval, Observable, Subscription } from "rxjs";
 import { TweenLite } from "gsap";
 import { map } from "rxjs/operators";
 
@@ -25,13 +25,14 @@ export class BioComponent {
   companies: string[] = [...this.firstLogos];
   observer: BehaviorSubject<string[]> = new BehaviorSubject(this.companies);
   first: boolean = false;
-
+  sub: Subscription;
+  anotherSub: Subscription;
   constructor() {}
   /* Function wait and push emits an obesrvable every 5 seconds to changeCompanies function
  which checks current array and switches it to the other logos */
   ngAfterViewInit(): void {
     this.changeCompanies();
-    this.waitAndPush().subscribe(() =>
+    this.sub = this.waitAndPush().subscribe(() =>
       this.companyDom.forEach((element) => {
         TweenLite.fromTo(
           element.nativeElement,
@@ -42,9 +43,14 @@ export class BioComponent {
       })
     );
   }
-
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.sub.unsubscribe();
+    this.anotherSub.unsubscribe();
+  }
   changeCompanies() {
-    this.waitAndPush().subscribe((companyArray) => {
+    this.anotherSub = this.waitAndPush().subscribe((companyArray) => {
       companyArray = [];
       if (this.first) {
         companyArray.push(...this.firstLogos);

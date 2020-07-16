@@ -10,7 +10,6 @@ import {
 import { PhotoDeliveryService } from "../photo-delivery.service";
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
-import { fromEvent } from "rxjs";
 @Component({
   selector: "app-photo-full",
   templateUrl: "./photo-full.component.html",

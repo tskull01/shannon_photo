@@ -18,7 +18,6 @@ export class TopNavComponent implements OnInit {
   folderPromise: any;
   @Input("folders") folders: Folder[];
   constructor(
-    private photoDelivery: PhotoDeliveryService,
     private folderService: FolderBuilderService,
     private router: Router
   ) {}
@@ -34,8 +33,5 @@ export class TopNavComponent implements OnInit {
   setFolder(folder) {
     console.log(folder);
     this.folderService.setFolderSubject(folder);
-  }
-  navSelection(num: number) {
-    this.selection = num;
   }
 }

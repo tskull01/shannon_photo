@@ -27,16 +27,12 @@ export class MobileDisplayComponent {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.folderService.folderSubject.subscribe((folder) => {
-      console.log(folder);
+      //This should take from the photo service no reason for this component to know the folders
       this.currentAlbum = folder;
       this.zeroEverythingOut();
       this.sizeOfAlbum = this.currentAlbum.imageSrcs.length;
       this.setCurrentPhotos();
       this.currentPhoto = new BehaviorSubject(this.photos[0].path);
-    });
-
-    this.currentPhoto.subscribe((value) => {
-      console.log(value);
     });
   }
   setCurrentPhotos() {

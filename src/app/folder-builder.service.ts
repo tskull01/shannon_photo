@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { MarkdownFile } from "./markdownFile";
-import { TransferStateService } from "@scullyio/ng-lib";
 import { BehaviorSubject } from "rxjs";
 import { Folder } from "./folder";
 import { GitApiResponse } from "./gitApiResponse";
@@ -22,17 +21,12 @@ export class FolderBuilderService {
   );
   //REGULAR EXPRESSIONS FOR TITLE DISPLAYPHOTO AND IMAGES
   titleRegex: RegExp = new RegExp("(?<=title:\\s)(.*)");
-  /* tslint:disable */
 
-  displayRegex: RegExp = new RegExp("(?<=displayPhoto:\\s)(.*?)\\s"); // tslint:disable-line
-  /* tslint:enable */
+  displayRegex: RegExp = new RegExp("(?<=displayPhoto:\\s)(.*?)\\s");
 
   imagesRegex: RegExp = new RegExp("(?<=galleryImages:\\s)([\\s\\S]*)(?=---)");
 
-  constructor(
-    private http: HttpClient,
-    private transferStateService: TransferStateService
-  ) {}
+  constructor(private http: HttpClient) {}
   setFolderSubject(folder: Folder) {
     this.folderSubject.next(folder);
   }

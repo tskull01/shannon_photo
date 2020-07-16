@@ -5,7 +5,6 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BioComponent } from "./bio/bio.component";
 import { ContactComponent } from "./contact/contact.component";
-import { EditingComponent } from "./editing/editing.component";
 import { MobileDisplayComponent } from "./mobile-display/mobile-display.component";
 import { MobileNavComponent } from "./mobile-nav/mobile-nav.component";
 import { PhotoFullComponent } from "./photo-full/photo-full.component";
@@ -32,7 +31,6 @@ import "hammerjs";
     AppComponent,
     BioComponent,
     ContactComponent,
-    EditingComponent,
     MobileDisplayComponent,
     MobileNavComponent,
     PhotoFullComponent,

@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   subscriber: Subscription;
   folders: Folder[];
   retry: Observable<number>;
+  folderSub: Subscription;
   constructor(
     private folderService: FolderBuilderService,
     private router: Router,
@@ -29,12 +30,10 @@ export class AppComponent implements OnInit {
     this.router.navigate([""]);
     this.loading = true;
     let waitForFolder = this.folderService.getAllMarkdown();
-    waitForFolder.subscribe((waiting) => {
-      console.log(waiting + "Behavior subject");
+    this.folderSub = waitForFolder.subscribe((waiting) => {
       waiting
         ? (this.subscriber = this.folderService.allFoldersSubject.subscribe(
             (folders) => {
-              console.log("getting all folders");
               this.folders = folders;
               this.loading = false;
             }
@@ -46,5 +45,6 @@ export class AppComponent implements OnInit {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
     this.subscriber.unsubscribe();
+    this.folderSub.unsubscribe();
   }
 }
