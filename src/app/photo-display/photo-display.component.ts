@@ -97,6 +97,7 @@ export class PhotoDisplayComponent {
   showImage(item) {
     this.renderCount++;
     // Determinate spinner option this.value = Math.round((this.renderCount/this.folderOrder.length) * 100);
+    console.log(this.renderCount + " <- Render count -> " + this.folderLimit);
     if (this.renderCount === this.folderLimit - 1) {
       this.spinner = false;
       this.showElements();
