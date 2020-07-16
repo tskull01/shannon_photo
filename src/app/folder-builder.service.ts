@@ -55,8 +55,13 @@ export class FolderBuilderService {
     ) {
       let title = this.titleRegex.exec(result)[0];
       let displayPhoto = this.displayRegex.exec(result)[0];
-      let imagesText = this.imagesRegex.exec(result)[0].trim().split("-");
-      this.buildingFolders.push(new Folder(title, displayPhoto, imagesText));
+      console.log(result);
+      let imagesText = this.imagesRegex.exec(result)[0].split("-");
+      let formatedSrc = imagesText
+        .map((value) => value.replace(/(\r\n|\n|\r)/gm, "").trim())
+        .filter((value) => value !== " ");
+      console.log(formatedSrc);
+      this.buildingFolders.push(new Folder(title, displayPhoto, formatedSrc));
       this.allFoldersSubject.next(this.buildingFolders);
       if (this.buildingFolders.length === this.numberOfFolders) {
         this.waitForFolders.next(true);
