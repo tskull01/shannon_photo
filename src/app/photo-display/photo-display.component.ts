@@ -66,7 +66,7 @@ export class PhotoDisplayComponent {
     //Set all of the images
     let srcArray: string[] = [];
     photos.forEach((photo) =>
-      photo ? srcArray.push(`${photo.path}"?nf_resize=fit&w=600"`) : null
+      photo ? srcArray.push(`${photo.path}?nf_resize=fit&w=600`) : null
     );
     this.folderLimit = srcArray.length;
     this.observer.next(srcArray);
