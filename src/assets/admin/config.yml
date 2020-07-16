@@ -6,7 +6,7 @@ backend:
   squash_merges: true
 
 media_folder: "src/assets/images" #Media files will be stored here
-public_folder: "src/assets/images/uploads" # The src attribute for uploaded media
+public_folder: "assets/images/" # The src attribute for uploaded media
 
 collections:
   - name: "folders" # Used in routes, e.g. /admin/collections/recipe
