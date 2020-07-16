@@ -24,6 +24,7 @@ galleryImages:
   - assets/images/az_lithicbackpack_lsdetail_3235.jpg
   - assets/images/az_tent_rainfly_divya_tristan_1374.jpg
   - assets/images/az_tristan_scrambling_mg_2700.jpg
+  - src/assets/images/uploads/_79a7682.jpg
   - assets/images/rocks.jpg
   - assets/images/hikeroute_az_composite_mg_2630.jpg
   - assets/images/ss_092719_redbullrisingtalent_us_3030.jpg
@@ -31,4 +32,5 @@ galleryImages:
   - assets/images/u79a2481.jpg
   - assets/images/u79a6249.jpg
   - assets/images/u79a7576.jpg
+  - src/assets/images/uploads/_mg_3441.jpg
 ---
