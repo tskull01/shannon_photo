@@ -15,6 +15,8 @@ import { Folder } from "../folder";
 import { Subscription, BehaviorSubject } from "rxjs";
 import { ProgressSpinnerMode } from "@angular/material/progress-spinner";
 import { FolderBuilderService } from "../folder-builder.service";
+import { gsap } from "gsap";
+
 @Component({
   selector: "app-photo-display",
   templateUrl: "./photo-display.component.html",
@@ -38,6 +40,7 @@ export class PhotoDisplayComponent {
   diameter: number = 50;
   @Output() setSelection = new EventEmitter();
   observer: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+
   constructor(
     private photoService: PhotoDeliveryService,
     private renderer: Renderer2,
@@ -97,8 +100,7 @@ export class PhotoDisplayComponent {
   showImage(item) {
     this.renderCount++;
     // Determinate spinner option this.value = Math.round((this.renderCount/this.folderOrder.length) * 100);
-    console.log(this.renderCount + " <- Render count -> " + this.folderLimit);
-    if (this.renderCount === this.folderLimit - 1) {
+    if (this.renderCount === this.folderLimit - 2) {
       this.spinner = false;
       this.showElements();
     }
@@ -107,10 +109,12 @@ export class PhotoDisplayComponent {
     this.renderer.removeClass(this.masonry.nativeElement, "hidden");
     this.renderer.addClass(this.masonry.nativeElement, "loaded");
     this.renderer.addClass(this.masonry.nativeElement, "masonry");
+    gsap.fromTo(this.masonry.nativeElement, 1, { opacity: 0 }, { opacity: 1 });
   }
   hideElements() {
     this.renderer.removeClass(this.masonry.nativeElement, "loaded");
     this.renderer.removeClass(this.masonry.nativeElement, "masonry");
     this.renderer.addClass(this.masonry.nativeElement, "hidden");
+    gsap.fromTo(this.masonry.nativeElement, 1, { opacity: 1 }, { opacity: 0 });
   }
 }
