@@ -52,7 +52,12 @@ export class FolderBuilderService {
       console.log(result);
       let imagesText = this.imagesRegex.exec(result)[0].split("-");
       let formatedSrc = imagesText
-        .map((value) => value.replace(/(\r\n|\n|\r)/gm, "").trim())
+        .map((value) =>
+          value
+            .replace("src/", "")
+            .replace(/(\r\n|\n|\r)/gm, "")
+            .trim()
+        )
         .filter((value) => value !== " ");
       console.log(formatedSrc);
       this.buildingFolders.push(new Folder(title, displayPhoto, formatedSrc));
