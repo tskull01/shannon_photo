@@ -13,12 +13,12 @@ import { BehaviorSubject } from "rxjs";
 export class MobileDisplayComponent {
   sizeOfAlbum: number;
   folder: Folder;
-  currentAlbum: Folder;
+  currentAlbum: string[];
   photos: Photo[] = [];
   currentPhoto: BehaviorSubject<any>;
   folderOrder: number[] = [];
   @ViewChild("container") container: ElementRef;
-  albumIndex: number = 0;
+  currentIndex: number = 0;
   constructor(
     private folderService: FolderBuilderService,
     private photoDelivery: PhotoDeliveryService
@@ -26,43 +26,31 @@ export class MobileDisplayComponent {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.folderService.folderSubject.subscribe((folder) => {
+    this.photoDelivery.albumPhotos.subscribe((photos) => {
       //This should take from the photo service no reason for this component to know the folders
-      this.currentAlbum = folder;
       this.zeroEverythingOut();
-      this.sizeOfAlbum = this.currentAlbum.imageSrcs.length;
-      this.setCurrentPhotos();
-      this.currentPhoto = new BehaviorSubject(this.photos[0].path);
-    });
-  }
-  setCurrentPhotos() {
-    for (let i = 1; i <= this.sizeOfAlbum; i++) {
-      this.photos.push(
-        new Photo(
-          i,
-          this.currentAlbum.imageSrcs[i],
-          this.currentAlbum.title,
-          false
-        )
+      this.photos = photos;
+      this.currentPhoto = new BehaviorSubject(
+        this.photos[this.currentIndex].path
       );
-    }
+    });
   }
 
   zeroEverythingOut() {
-    this.folderOrder = [];
+    this.currentIndex = 0;
     this.photos = [];
   }
   handleSwipeLeft(event) {
-    this.albumIndex <= 0
-      ? (this.albumIndex = this.sizeOfAlbum - 1)
-      : this.albumIndex--;
-    this.currentPhoto.next(this.photos[this.albumIndex].path);
+    this.currentIndex <= 0
+      ? (this.currentIndex = this.sizeOfAlbum - 1)
+      : this.currentIndex--;
+    this.currentPhoto.next(this.photos[this.currentIndex].path);
   }
   handleSwipeRight(event) {
-    console.log(this.albumIndex + "ALbum Index");
-    this.albumIndex >= this.sizeOfAlbum - 1
-      ? (this.albumIndex = 0)
-      : this.albumIndex++;
-    this.currentPhoto.next(this.photos[this.albumIndex].path);
+    console.log(this.currentIndex + "ALbum Index");
+    this.currentIndex >= this.sizeOfAlbum - 1
+      ? (this.currentIndex = 0)
+      : this.currentIndex++;
+    this.currentPhoto.next(this.photos[this.currentIndex].path);
   }
 }

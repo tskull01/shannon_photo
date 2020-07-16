@@ -6,9 +6,12 @@
     <ul>
       <div *ngFor="let folder of folders">
         <li>
-          <a routerLink="/mobileDisplay" routerLinkActive="active">{{
-            folder.title
-          }}</a>
+          <a
+            routerLink="/mobileDisplay"
+            routerLinkActive="active"
+            (click)="setFolder(folder)"
+            >{{ folder.title }}</a
+          >
         </li>
       </div>
       <li>
