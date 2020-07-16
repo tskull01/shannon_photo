@@ -15,7 +15,6 @@ import { Folder } from "../folder";
 import { Subscription, Observable, BehaviorSubject } from "rxjs";
 import { ProgressSpinnerMode } from "@angular/material/progress-spinner";
 import { FolderBuilderService } from "../folder-builder.service";
-import { createOfflineCompileUrlResolver } from "@angular/compiler";
 @Component({
   selector: "app-photo-display",
   templateUrl: "./photo-display.component.html",
@@ -27,6 +26,7 @@ export class PhotoDisplayComponent {
   masonryItems: Photo[] = [];
   folder: Folder;
   @ViewChildren("items") items: QueryList<ElementRef>;
+  @ViewChild("masonry") masonry: ElementRef;
   spinner: boolean = true;
   folderLimit: number = 0;
   selectedPhoto: Photo;
@@ -84,13 +84,10 @@ export class PhotoDisplayComponent {
   zeroOutArray() {
     this.renderCount = 0;
     // Determinate spinner option this.value = 0;
-    console.log("zeroing out observer");
     this.observer.next([]);
     this.spinner = true;
     if (this.items) {
-      this.items.forEach((item) => {
-        this.hideElement(item);
-      });
+      this.hideElements();
     }
     this.folderLimit = 0;
     window.scrollTo(0, 0);
@@ -100,17 +97,17 @@ export class PhotoDisplayComponent {
     // Determinate spinner option this.value = Math.round((this.renderCount/this.folderOrder.length) * 100);
     if (this.renderCount === this.folderLimit - 1) {
       this.spinner = false;
-      this.items.forEach((item) => {
-        this.showElement(item);
-      });
+      this.showElements();
     }
   }
-  showElement(element: ElementRef) {
-    this.renderer.removeClass(element.nativeElement, "hidden");
-    this.renderer.addClass(element.nativeElement, "loaded");
+  showElements() {
+    this.renderer.removeClass(this.masonry.nativeElement, "hidden");
+    this.renderer.addClass(this.masonry.nativeElement, "loaded");
+    this.renderer.addClass(this.masonry.nativeElement, "masonry");
   }
-  hideElement(element: ElementRef) {
-    this.renderer.removeClass(element.nativeElement, "loaded");
-    this.renderer.addClass(element.nativeElement, "hidden");
+  hideElements() {
+    this.renderer.removeClass(this.masonry.nativeElement, "loaded");
+    this.renderer.removeClass(this.masonry.nativeElement, "masonry");
+    this.renderer.addClass(this.masonry.nativeElement, "hidden");
   }
 }

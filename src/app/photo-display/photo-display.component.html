@@ -1,8 +1,7 @@
-<div class="masonry">
+<div #masonry class="masonry" class="hidden">
   <div class="item" *ngFor="let obs of observer | async; index as i">
     <img
       #items
-      class="hidden"
       (click)="displayDialog(obs, i)"
       (contextmenu)="disableRightClick(e)"
       (load)="showImage(i)"
@@ -12,14 +11,9 @@
   </div>
 </div>
 
-<div class="moveSpinner">
+<div class="moveSpinner" *ngIf="spinner">
   <div></div>
-  <mat-progress-spinner
-    *ngIf="spinner"
-    [diameter]="diameter"
-    [mode]="mode"
-    [value]="value"
-  >
+  <mat-progress-spinner [diameter]="diameter" [mode]="mode" [value]="value">
   </mat-progress-spinner>
   <div></div>
 </div>

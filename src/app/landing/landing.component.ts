@@ -71,7 +71,7 @@ export class LandingComponent implements OnInit {
     //Scroll event obs checks position of photos
     this.scroller = fromEvent<any>(this.container.nativeElement, "wheel")
       .pipe(
-        throttleTime(50),
+        throttleTime(30),
         takeUntil(this.notifier),
         tap((e) => this.checkPosition(e)),
         tap((e) => this.moveDisplays(e))

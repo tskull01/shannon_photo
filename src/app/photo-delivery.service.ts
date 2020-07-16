@@ -37,27 +37,34 @@ export class PhotoDeliveryService {
   }
   increaseId() {
     //folder max is the imgSrcs length
+    console.log("Current Index before" + this.currentIndex);
     if (this.currentIndex >= this.photos.length - 1) {
       this.currentIndex = 0;
       this.selectedPhoto = this.photos[this.currentIndex];
+      console.log(this.photos + "PHOTOS");
     } else {
-      this.selectedPhoto = this.photos[this.currentIndex++];
+      this.currentIndex++;
+      this.selectedPhoto = this.photos[this.currentIndex];
     }
+    console.log("Current Index after " + this.currentIndex);
   }
   decreaseId() {
     if (this.currentIndex <= 0) {
       this.currentIndex = this.photos.length - 1;
       this.selectedPhoto = this.photos[this.currentIndex];
     } else {
-      this.selectedPhoto = this.photos[this.currentIndex--];
+      this.currentIndex--;
+      this.selectedPhoto = this.photos[this.currentIndex];
     }
   }
   setAlbumPhotos() {
-    this.photos.filter((photo) => photo.path !== "");
-    this.photos = this.folder.imageSrcs.map(
-      (photo, i) => new Photo(i, photo, this.folder.title, false)
-    );
+    this.photos = this.folder.imageSrcs
+      .map((photo, i) => new Photo(i, photo, this.folder.title, false))
+      .filter((photo) => photo.path !== "");
     this.albumPhotos.next(this.photos);
+    this.albumPhotos.subscribe((photos) => {
+      console.log(photos);
+    });
   }
   getAlbumPhotos() {
     return this.albumPhotos.value;
