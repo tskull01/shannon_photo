@@ -58,6 +58,9 @@ export class PhotoDisplayComponent {
     this.items.changes.subscribe((t) => {
       this.ngForRendred();
     });
+    this.observer.subscribe((photos) => {
+      console.log(photos);
+    });
   }
   ngForRendred() {
     console.log("rendered");
@@ -65,8 +68,10 @@ export class PhotoDisplayComponent {
   setCurrentPhotos(photos) {
     //Set all of the images
     let srcArray: string[] = [];
-    photos.forEach((photo) =>
-      photo ? srcArray.push(`${photo.path}?nf_resize=fit&w=600`) : null
+    photos.forEach(
+      (photo) =>
+        photo ? srcArray.push(`${photo.path}?nf_resize=fit&w=600`) : null
+      //prod path`${photo.path}?nf_resize=fit&w=600`
     );
     this.folderLimit = srcArray.length;
     this.observer.next(srcArray);
