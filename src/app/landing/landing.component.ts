@@ -12,7 +12,7 @@ import {
 import { Folder } from "../folder";
 import { PhotoDeliveryService } from "../photo-delivery.service";
 import { Router } from "@angular/router";
-import { TweenLite, Power0 } from "gsap";
+import { TweenLite, gsap, Power0 } from "gsap";
 import { FolderBuilderService } from "../folder-builder.service";
 import { Subscription, fromEvent, Subject } from "rxjs";
 import { takeUntil, throttleTime, tap } from "rxjs/operators";
@@ -40,6 +40,7 @@ export class LandingComponent implements OnInit {
   containerElem: Element;
   folder: Folder;
   prevScroll: number = 0;
+  currentXpercent: number = 0;
   @Input("folders") folders: Folder[];
   constructor(
     private photoDelivery: PhotoDeliveryService,
@@ -68,19 +69,20 @@ export class LandingComponent implements OnInit {
     this.folderElements = this.foldersDom.map((folder) => folder.nativeElement);
     this.containerElem = this.container.nativeElement;
     //Scroll event obs checks position of photos
-    this.scroller = fromEvent<any>(this.container.nativeElement, "scroll")
+    this.scroller = fromEvent<any>(this.container.nativeElement, "wheel")
       .pipe(
-        throttleTime(30),
+        throttleTime(50),
         takeUntil(this.notifier),
-        tap(() => this.checkPosition()),
-        tap(() => this.moveDisplays())
+        tap((e) => this.logEvent(e)),
+        tap((e) => this.checkPosition(e)),
+        tap((e) => this.moveDisplays(e))
       )
       .subscribe((scroll) => {
         //console.log(scroll);
       });
   }
 
-  checkPosition() {
+  checkPosition(e) {
     if (
       this.containerElem.scrollLeft >=
       this.folderElements[
@@ -88,7 +90,12 @@ export class LandingComponent implements OnInit {
       ].getBoundingClientRect().right
     ) {
       this.containerElem.scrollLeft = 0;
+    } else if (this.containerElem.scrollLeft === 0 && e.deltaY < -20) {
+      this.containerElem.scrollLeft = this.containerElem.scrollWidth / 2;
     }
+  }
+  logEvent(e) {
+    console.log(e.deltaY);
   }
   setPhotoTransform() {
     let transform = "";
@@ -102,11 +109,10 @@ export class LandingComponent implements OnInit {
     return transform;
   }
   selectFolder(folder, event) {
-    console.log("folder Selected");
-    let holder = folder.split("/");
+    console.log("folder Selected" + folder);
     this.mobile ? this.router.navigate([`./mobileDisplay`]) : null;
     for (let f of this.folders) {
-      if (f.title === holder[4]) {
+      if (f.title === folder) {
         console.log("matched");
         for (let element of this.folderElements) {
           TweenLite.to(element, 1, { opacity: 0 }).play();
@@ -114,7 +120,7 @@ export class LandingComponent implements OnInit {
         this.notifier.complete();
         this.scroller.unsubscribe();
         this.selectionMade = true;
-        this.photoDelivery.setFolder(f);
+        this.folderService.setFolderSubject(f);
       }
     }
   }
@@ -141,23 +147,13 @@ export class LandingComponent implements OnInit {
       }
     }
   }
-  /*scrollHandle(e: WheelEvent) {
-    let delta = Math.max(-1, Math.min(1, e.deltaY || -e.detail));
-    let scrollSpeed = 30;
-    let containerRef = <Element>this.container.nativeElement;
-    containerRef.scrollLeft -= delta * scrollSpeed;
-  }*/
-  moveDisplays() {
-    if (this.prevScroll < this.container.nativeElement.scrollLeft) {
-      this.folderElements.forEach((element) => {
-        TweenLite.to(element, 0.1, { xPercent: -1 });
-      });
+  moveDisplays(e) {
+    e.preventDefault();
+    if (e.deltaY > 0) {
+      this.containerElem.scrollLeft += 30;
     } else {
-      this.folderElements.forEach((element) => {
-        TweenLite.to(element, 0.1, { xPercent: 1 });
-      });
+      this.containerElem.scrollLeft -= 30;
     }
-    this.prevScroll = this.container.nativeElement.scrollLeft;
   }
   fadeIn(i) {
     if (i === this.folderDisplays.length - 1) {

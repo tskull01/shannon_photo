@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { MarkdownFile } from "./markdownFile";
 import { TransferStateService } from "@scullyio/ng-lib";
-import { BehaviorSubject, Observable, from } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 import { Folder } from "./folder";
 import { GitApiResponse } from "./gitApiResponse";
 @Injectable({
@@ -33,15 +33,15 @@ export class FolderBuilderService {
     private http: HttpClient,
     private transferStateService: TransferStateService
   ) {}
-
+  setFolderSubject(folder: Folder) {
+    this.folderSubject.next(folder);
+  }
   /* ACTUAL CODE UNDER HERE  */
   translateToText(markdownObjects: MarkdownFile[]) {
-    console.log(markdownObjects);
     markdownObjects.forEach((markdownFile) => {
       this.http
         .get(markdownFile.downloadUrl, { responseType: "text" })
         .subscribe((result: string) => {
-          console.log(result);
           this.parseText(result);
         });
     });
@@ -53,12 +53,9 @@ export class FolderBuilderService {
       this.displayRegex.test(result) &&
       this.imagesRegex.test(result)
     ) {
-      console.log("inside if passed tests");
       let title = this.titleRegex.exec(result)[0];
       let displayPhoto = this.displayRegex.exec(result)[0];
-      console.log(displayPhoto);
       let imagesText = this.imagesRegex.exec(result)[0].trim().split("-");
-      console.log(imagesText);
       this.buildingFolders.push(new Folder(title, displayPhoto, imagesText));
       this.allFoldersSubject.next(this.buildingFolders);
       if (this.buildingFolders.length === this.numberOfFolders) {
@@ -75,9 +72,7 @@ export class FolderBuilderService {
       )
       .subscribe((result: GitApiResponse[]) => {
         this.numberOfFolders = result.length;
-        console.log(result);
         result.forEach((result, i) => {
-          console.log(result);
           this.markdownObjects.push(
             new MarkdownFile(result.name, result.download_url)
           );

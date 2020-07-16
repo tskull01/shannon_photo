@@ -24,7 +24,8 @@ export class MobileNavComponent {
       this.folder = folder;
     });
   }
-  setSelection(folder) {
-    this.photoDelivery.setFolder(folder);
+  setFolder(folder) {
+    console.log(folder.title);
+    this.folderService.setFolderSubject(folder);
   }
 }

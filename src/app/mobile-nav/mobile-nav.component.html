@@ -5,16 +5,16 @@
   <div class="nav">
     <ul>
       <div *ngFor="let folder of folders">
-        <li (click)="setSelection(folder)">
+        <li>
           <a routerLink="/mobileDisplay" routerLinkActive="active">{{
             folder.title
           }}</a>
         </li>
       </div>
-      <li (click)="setSelection(3)">
+      <li>
         <a routerLink="/bio" routerLinkActive="active">Bio</a>
       </li>
-      <li (click)="setSelection(4)">
+      <li>
         <a routerLink="/contact" routerLinkActive="active">Contact</a>
       </li>
     </ul>

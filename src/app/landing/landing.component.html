@@ -1,14 +1,10 @@
 <div *ngIf="!selectionMade">
-  <div (wheel)="scrollHandle($event)" #container class="container">
-    <div
-      #folderDom
-      *ngFor="let f of folderDisplays; index as i"
-      class="folder hide"
-    >
-      <div>
+  <div #container class="container">
+    <div *ngFor="let f of folderDisplays; index as i" class="folder">
+      <div #folderDom class="hide">
         <img
           (load)="fadeIn(i)"
-          (click)="selectFolder(f.path, $event)"
+          (click)="selectFolder(f.name, $event)"
           src="{{ f.path }}"
           alt="Shannon Schultz Photo"
           class="item"

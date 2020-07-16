@@ -15,14 +15,15 @@ export class PhotoDeliveryService {
   url: string;
   baseUrl: string = "../assets/images/";
   folderMax: string[] = [];
-  constructor(private folderBuilder: FolderBuilderService) {}
-  getFolder() {
+  constructor(private folderBuilder: FolderBuilderService) {
     this.folderBuilder.folderSubject.subscribe((value) => {
-      console.log(value + "INSIDE PHOTO SERVICE");
+      this.photos = [];
       this.folder = value;
+      this.folderChange.next(value);
       value ? this.setAlbumPhotos() : null;
     });
   }
+
   setPhoto(photo: Photo) {
     this.selectedPhoto = photo;
   }
@@ -49,13 +50,14 @@ export class PhotoDeliveryService {
       ? (this.selectedPhoto.id = this.folder.imageSrcs.length)
       : this.selectedPhoto.id--;
   }
-  setFolder(folder) {
-    this.folderChange.next(folder);
-  }
   setAlbumPhotos() {
-    this.photos = this.folder.imageSrcs.map(
-      (photo, i) => new Photo(i, photo, this.folder.title, false)
+    this.photos = this.folder.imageSrcs.map((photo, i) =>
+      photo === "" ? null : new Photo(i, photo, this.folder.title, false)
     );
+    console.log(this.photos.length);
     this.albumPhotos.next(this.photos);
+  }
+  getAlbumPhotos() {
+    return this.albumPhotos.value;
   }
 }

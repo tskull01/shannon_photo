@@ -32,7 +32,8 @@ export class TopNavComponent implements OnInit {
     });
   }
   setFolder(folder) {
-    this.photoDelivery.setFolder(folder);
+    console.log(folder);
+    this.folderService.setFolderSubject(folder);
   }
   navSelection(num: number) {
     this.selection = num;

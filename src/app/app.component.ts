@@ -36,7 +36,6 @@ export class AppComponent implements OnInit {
             (folders) => {
               console.log("getting all folders");
               this.folders = folders;
-              this.photoService.getFolder();
               this.loading = false;
             }
           ))

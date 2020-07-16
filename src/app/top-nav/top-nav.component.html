@@ -6,8 +6,13 @@
     <div></div>
     <div class="grid-container">
       <ul>
-        <li (click)="setFolder(f)" *ngFor="let f of folders">
-          <a routerLink="/display" routerLinkActive="active">{{ f.title }}</a>
+        <li *ngFor="let f of folders">
+          <a
+            routerLink="/display"
+            (click)="setFolder(f)"
+            routerLinkActive="active"
+            >{{ f.title }}</a
+          >
         </li>
         <li (click)="navSelection(2)">
           <a routerLink="/bio" routerLinkActive="active">Bio</a>

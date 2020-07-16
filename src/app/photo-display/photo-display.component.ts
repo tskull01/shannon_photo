@@ -12,8 +12,9 @@ import {
 import { Photo } from "src/app/photo";
 import { PhotoDeliveryService } from "../photo-delivery.service";
 import { Folder } from "../folder";
-import { Subscription, Observable } from "rxjs";
+import { Subscription, Observable, BehaviorSubject } from "rxjs";
 import { ProgressSpinnerMode } from "@angular/material/progress-spinner";
+import { FolderBuilderService } from "../folder-builder.service";
 @Component({
   selector: "app-photo-display",
   templateUrl: "./photo-display.component.html",
@@ -26,27 +27,30 @@ export class PhotoDisplayComponent {
   folder: Folder;
   @ViewChildren("items") items: QueryList<ElementRef>;
   spinner: boolean = true;
-  folderOrder: number[] = [];
+  folderLimit: number = 0;
   selectedPhoto: Photo;
   sub: Subscription;
   renderCount: number = 0;
-  observer: Observable<string[]>;
   mode: ProgressSpinnerMode = "indeterminate";
   value: number;
   diameter: number = 50;
   @Output() setSelection = new EventEmitter();
+  observer: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
   constructor(
     private photoService: PhotoDeliveryService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private folderService: FolderBuilderService
   ) {
-    this.photoService.folderChange.subscribe((folder) => {
+    this.photoService.albumPhotos.subscribe((photos) => {
+      this.zeroOutArray();
+      this.setCurrentPhotos(photos);
+    });
+    this.folderService.folderSubject.subscribe((folder) => {
       this.folder = new Folder(
         folder.title,
         folder.displaySrc,
         folder.imageSrcs
       );
-      this.zeroOutArray();
-      this.getCurrentPhotos();
     });
   }
   ngAfterViewInit() {
@@ -57,15 +61,12 @@ export class PhotoDisplayComponent {
   ngForRendred() {
     console.log("rendered");
   }
-  getCurrentPhotos() {
+  setCurrentPhotos(photos) {
     //Set all of the images
     let srcArray: string[] = [];
-    this.photoService.albumPhotos.subscribe((photos) => {
-      photos.forEach((photo) => srcArray.push(photo.path));
-    });
-    this.observer = new Observable((obs) => {
-      obs.next(srcArray);
-    });
+    photos.forEach((photo) => (photo ? srcArray.push(photo.path) : null));
+    this.folderLimit = srcArray.length;
+    this.observer.next(srcArray);
   }
   disableRightClick(e) {
     return false;
@@ -88,20 +89,21 @@ export class PhotoDisplayComponent {
   zeroOutArray() {
     this.renderCount = 0;
     // Determinate spinner option this.value = 0;
-    this.masonryItems = [];
+    console.log("zeroing out observer");
+    this.observer.next([]);
     this.spinner = true;
     if (this.items) {
       this.items.forEach((item) => {
         this.hideElement(item);
       });
     }
-    this.folderOrder = [];
+    this.folderLimit = 0;
     window.scrollTo(0, 0);
   }
   showImage(item) {
     this.renderCount++;
     // Determinate spinner option this.value = Math.round((this.renderCount/this.folderOrder.length) * 100);
-    if (this.renderCount === this.folderOrder.length) {
+    if (this.renderCount === this.folderLimit - 1) {
       this.spinner = false;
       this.items.forEach((item) => {
         this.showElement(item);
