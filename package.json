@@ -27,7 +27,7 @@
     "@angular/service-worker": "^9.1.2",
     "@scullyio/init": "0.0.28",
     "@scullyio/ng-lib": "latest",
-    "@scullyio/scully": "0.0.99",
+    "@scullyio/scully": "1.0.9",
     "@types/gsap": "^1.20.2",
     "@types/hammerjs": "^2.0.36",
     "@types/netlify-identity-widget": "^1.4.1",
