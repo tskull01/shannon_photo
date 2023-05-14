@@ -146,9 +146,9 @@ export class LandingComponent implements OnInit {
   moveDisplays(e) {
     e.preventDefault();
     if (e.deltaY > 0) {
-      this.containerElem.scrollLeft += 65;
+      this.containerElem.scrollLeft += 75;
     } else {
-      this.containerElem.scrollLeft -= 65;
+      this.containerElem.scrollLeft -= 75;
     }
   }
   fadeIn(i) {
